@@ -3,6 +3,20 @@ from apps.core.models import TimeStampedModel
 
 
 class Job(TimeStampedModel):
+    class Status(models.TextChoices):
+        DRAFT = "draft", "Draft"
+        PUBLISHED = "published", "Published"
+        CLOSED = "closed", "Closed"
+        ARCHIVED = "archived", "Archived"
+
+    class Seniority(models.TextChoices):
+        INTERN = "intern", "Intern"
+        JUNIOR = "junior", "Junior"
+        MID = "mid", "Mid-level"
+        SENIOR = "senior", "Senior"
+        LEAD = "lead", "Lead"
+        EXECUTIVE = "executive", "Executive"
+
     class WorkMode(models.TextChoices):
         REMOTE = "remote", "Remote"
         HYBRID = "hybrid", "Hybrid"
@@ -17,6 +31,8 @@ class Job(TimeStampedModel):
     company = models.ForeignKey("companies.Company", on_delete=models.CASCADE, related_name="jobs")
     title = models.CharField(max_length=220)
     slug = models.SlugField(max_length=260, unique=True)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
+    seniority = models.CharField(max_length=20, choices=Seniority.choices, blank=True)
     description = models.TextField()
     location = models.CharField(max_length=180, blank=True)
     work_mode = models.CharField(max_length=20, choices=WorkMode.choices, default=WorkMode.ONSITE)
@@ -38,6 +54,7 @@ class Job(TimeStampedModel):
         db_table = "jobs"
         indexes = [
             models.Index(fields=["slug"]),
+            models.Index(fields=["status"]),
             models.Index(fields=["is_active", "published_at"]),
             models.Index(fields=["work_mode", "job_type"]),
         ]
