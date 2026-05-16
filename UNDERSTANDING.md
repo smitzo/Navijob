@@ -37,3 +37,11 @@ An applicant profile stores candidate information that is specific to job search
 This is separate from Django's built-in user account. The user account answers "who can log in?" while the applicant profile answers "what kind of job is this person looking for?" Keeping those separate avoids turning the authentication table into a messy product table.
 
 I chose a one-to-one relationship with the user because one login should normally have one candidate profile. I chose JSON fields for skills and target roles for the first backend version because they let us move quickly without creating many small lookup tables too early.
+
+## Recruiter Profiles
+
+A recruiter profile stores hiring-side information: which company the recruiter represents, their role title, contact details, and whether they are verified.
+
+The recruiter is also separate from the user account. This matters because a person can log in as a user, but the product still needs to know whether that person has permission to manage jobs for a startup.
+
+I chose a protected company relationship instead of deleting recruiters automatically when a company is removed. In hiring data, accidental deletion is expensive. Protecting the relationship makes the system ask us to handle company removal deliberately.
