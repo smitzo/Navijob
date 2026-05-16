@@ -61,3 +61,11 @@ A job listing now has a `status`: draft, published, closed, or archived. This is
 Deleting removes data. Closing or archiving keeps history. That matters for a job platform because applications, analytics, and recruiter activity can still be useful after a role is no longer open.
 
 The job model also stores seniority, such as junior, senior, lead, or executive. I chose explicit choices because seniority is a common search filter and should stay consistent across listings.
+
+## Compensation for Premium Startup Jobs
+
+The job listing stores salary and equity separately. Salary is the cash pay. Equity is ownership in the startup, usually written as a percentage.
+
+I chose separate `salary_min`, `salary_max`, `equity_min`, and `equity_max` fields instead of a single compensation text box because structured numbers can be filtered, compared, and validated. A text box is still useful for nuance, but it should not be the only source of truth.
+
+The model includes `currency` and `salary_period` because `120000 USD per year` and `120000 INR per month` are completely different offers. Storing the period prevents misleading comparisons.
