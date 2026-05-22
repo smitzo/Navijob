@@ -101,3 +101,45 @@ The job model validates important ranges before saving. Minimum salary cannot be
 The application model validates business rules too. Applications are only allowed for active, published jobs, and a selected resume must belong to the same applicant.
 
 I chose model-level validation because it protects the data even if the object is created from a script, the Django admin, or a future API endpoint. Serializer validation is still useful, but the model is the last line of defense.
+
+## Account Admin Screens
+
+Applicant and recruiter profiles are registered in the Django admin. This lets an operator search by user email, inspect profile details, and filter by useful states like open-to-work or verified recruiter.
+
+I chose admin registration early because marketplaces often need manual review before automation is perfect. A simple admin screen lets the team correct data and investigate issues without writing database queries.
+
+## Company Admin Screen
+
+Companies are registered in the admin with filters for stage, size, verification, and premium partner status.
+
+I chose these filters because an operator will often need to answer questions like "which companies are verified?" or "which Series A companies are premium partners?" without touching SQL.
+
+## Job Admin Screens
+
+Jobs and applications are registered in the Django admin. The listing admin focuses on status, seniority, work mode, job type, and premium flags. The application admin focuses on candidate progress.
+
+I chose to register applications separately from jobs because reviewing a job and reviewing candidate submissions are different operator tasks. Keeping them separate makes the admin easier to scan.
+
+## Serializers
+
+Serializers turn Django model objects into JSON and validate JSON coming into the API. They are the bridge between the database world and the frontend world.
+
+Company, applicant, recruiter, job, and application serializers are separated by business concept. Job list responses use a smaller serializer than job detail responses, because list pages should be fast and compact while detail pages can include richer text.
+
+I chose nested read-only summaries for company and recruiter data. That means the frontend can show useful context with a job without needing several extra API calls immediately.
+
+## Job API
+
+The public jobs API is read-only. Anyone can browse published, active jobs, but the endpoint does not let anonymous users create or edit listings.
+
+The job list endpoint supports practical filters like search query, work mode, job type, seniority, location, and premium status. These match the first workflows a candidate will expect when browsing startup jobs.
+
+Applications are authenticated. The backend looks for the current user's applicant profile and attaches new applications to that profile. I chose this over letting the frontend send an applicant ID because frontend-supplied ownership IDs are easy to fake.
+
+## Backend Tests
+
+The first test coverage focuses on model validation and API behavior.
+
+The model tests check that invalid salary ranges are rejected, applications cannot target draft jobs, and applicants cannot attach someone else's resume. The API tests check that public job browsing only shows published active jobs, search works, authenticated applicants can apply, and users without applicant profiles cannot apply.
+
+I chose these tests first because they protect trust. A premium job platform needs clean listings and controlled applications before it needs advanced features.
