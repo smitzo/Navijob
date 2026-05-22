@@ -69,3 +69,11 @@ The job listing stores salary and equity separately. Salary is the cash pay. Equ
 I chose separate `salary_min`, `salary_max`, `equity_min`, and `equity_max` fields instead of a single compensation text box because structured numbers can be filtered, compared, and validated. A text box is still useful for nuance, but it should not be the only source of truth.
 
 The model includes `currency` and `salary_period` because `120000 USD per year` and `120000 INR per month` are completely different offers. Storing the period prevents misleading comparisons.
+
+## Recruiter-Owned Job Listings
+
+A job listing can point to the recruiter profile that posted it. This does not replace the company relationship. The company tells us which startup owns the role; the recruiter tells us which human account is responsible for it.
+
+I chose `SET_NULL` for the recruiter relationship. If a recruiter leaves a company, the job history should remain. The listing can survive while the `posted_by` field becomes empty until another recruiter takes responsibility.
+
+The model keeps both `apply_url` and `apply_email` because startups vary. Some use an applicant tracking system, while early-stage teams may still accept email applications.
