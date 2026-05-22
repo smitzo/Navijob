@@ -93,3 +93,11 @@ A job application connects one applicant profile to one job listing. It stores s
 I chose a separate `JobApplication` model instead of putting application data on the job or applicant because applications are their own business event. One applicant can apply to many jobs, and one job can receive many applications.
 
 The database prevents the same applicant from applying to the same job twice by using a unique constraint. This keeps the data clean even if a frontend bug accidentally sends the same request more than once.
+
+## Model Validation
+
+The job model validates important ranges before saving. Minimum salary cannot be higher than maximum salary. Minimum equity cannot be higher than maximum equity. Premium score is capped at 100.
+
+The application model validates business rules too. Applications are only allowed for active, published jobs, and a selected resume must belong to the same applicant.
+
+I chose model-level validation because it protects the data even if the object is created from a script, the Django admin, or a future API endpoint. Serializer validation is still useful, but the model is the last line of defense.
