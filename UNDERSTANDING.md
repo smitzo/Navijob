@@ -143,3 +143,7 @@ The first test coverage focuses on model validation and API behavior.
 The model tests check that invalid salary ranges are rejected, applications cannot target draft jobs, and applicants cannot attach someone else's resume. The API tests check that public job browsing only shows published active jobs, search works, authenticated applicants can apply, and users without applicant profiles cannot apply.
 
 I chose these tests first because they protect trust. A premium job platform needs clean listings and controlled applications before it needs advanced features.
+
+## Implementation Log
+
+- Company admin screens make startup verification and premium partner review visible from Django admin.
