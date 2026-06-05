@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Navijob",
-  tagline: "Navigate your next career move.",
+  tagline: "Premium startup jobs, launching soon.",
   description:
-    "Find verified fresher jobs, build an ATS-friendly resume, and get early job alerts.",
+    "A curated hiring lane for ambitious candidates who want verified roles at high-signal startups.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   contactEmail: "hello@navijob.in"
 };
@@ -16,10 +16,10 @@ export const waitlistOptions = {
     "Switching career"
   ],
   interests: [
-    "Fresher jobs",
+    "Premium startup jobs",
     "Internships",
-    "Resume builder",
+    "Verified remote roles",
     "ATS resume check",
-    "Premium job alerts"
+    "Recruiter access"
   ]
 };
