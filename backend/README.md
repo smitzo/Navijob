@@ -66,3 +66,13 @@ source .venv/bin/activate
 python manage.py check
 python manage.py test
 ```
+
+## Demo Data
+
+Static demo-only marketplace data lives in `backend/data/`:
+
+- `demo_companies.json`: 10 verified startup companies.
+- `demo_jobs.json`: 20 demo jobs across full-time and internship roles.
+- `demo_applicants.json`: 50 demo applicants across fullstack, AI, ML, data, frontend, backend, DevOps, and product roles.
+
+Use this data only for read-only demo experiences. Do not mix it with production user records, and do not expose public write access for demo files.

@@ -172,3 +172,13 @@ The visitor counter is implemented as a real client-server flow. The browser cre
 The production path uses Supabase through the `record_site_visit` database function. This keeps counting logic on the server side instead of trusting the browser to report totals.
 
 There is also a local development fallback that writes to `/tmp/navijob-visitors.json` when Supabase is not configured. I chose that fallback so the counter still works during local frontend work, while Supabase remains the real persistent path for deployment.
+
+## Demo Data
+
+Demo-only marketplace data lives in `backend/data/` as plain JSON. There are separate files for companies, jobs, and applicants.
+
+I chose JSON files instead of database records for this step because the requirement is to show demo data to demo users without mixing it into real production tables. Static files are easier to review, reset, and keep separate from real user data.
+
+The demo data includes 10 startup companies, 20 jobs, and 50 applicants. The jobs cover fullstack developers, AI developers, ML developers, interns, and full-time roles. The applicants cover multiple experience levels and role targets so the demo can show a realistic marketplace without using real personal information.
+
+Security-wise, this is read-only sample data. The app should not accept public writes into these files, and frontend rendering should treat every field as display text rather than trusted HTML.
