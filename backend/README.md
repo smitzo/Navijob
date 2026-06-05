@@ -34,3 +34,35 @@ python manage.py runserver
 - Frontend inserts via Supabase anon key and RLS insert policy.
 - Django connects using the Postgres connection string.
 - Never put Supabase service role key in frontend.
+
+## Job Marketplace Backend
+
+The backend now includes the first marketplace foundation:
+
+- `Company`: startup profile, stage, size, verification, and premium partner flags.
+- `ApplicantProfile`: candidate job-search profile linked to a Django user.
+- `RecruiterProfile`: hiring-side profile linked to a Django user and company.
+- `Job`: premium startup listing with status, compensation, equity, skills, and curation fields.
+- `JobApplication`: application workflow connecting an applicant to a job.
+
+## API Endpoints
+
+```txt
+GET /api/jobs/
+GET /api/jobs/<slug>/
+GET /api/applications/
+POST /api/applications/
+```
+
+`/api/jobs/` is public and returns only active, published jobs. It supports query parameters such as `q`, `work_mode`, `job_type`, `seniority`, `location`, and `is_premium`.
+
+`/api/applications/` requires an authenticated user with an applicant profile.
+
+## Backend Checks
+
+```bash
+cd backend
+source .venv/bin/activate
+python manage.py check
+python manage.py test
+```
