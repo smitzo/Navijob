@@ -182,3 +182,15 @@ I chose JSON files instead of database records for this step because the require
 The demo data includes 10 startup companies, 20 jobs, and 50 applicants. The jobs cover fullstack developers, AI developers, ML developers, interns, and full-time roles. The applicants cover multiple experience levels and role targets so the demo can show a realistic marketplace without using real personal information.
 
 Security-wise, this is read-only sample data. The app should not accept public writes into these files, and frontend rendering should treat every field as display text rather than trusted HTML.
+
+## Demo Login and Role Routing
+
+The frontend now has a demo-only login and signup flow. It accepts two temporary users: `demo/demo` and `admin/admin`.
+
+During login or signup, the user chooses whether they are a candidate or recruiter. Candidate sessions go to `/candidate`; recruiter sessions go to `/recruiter`.
+
+I chose a shared `AuthForm` component instead of separate login and signup implementations because the demo behavior is almost identical. This keeps the frontend modular and avoids duplicating form logic.
+
+The demo session is stored in browser `localStorage`. That is acceptable for a product preview, but it is not secure production authentication. Real auth should use server-verified sessions, protected API routes, CSRF-aware flows where needed, and backend permission checks.
+
+Reusable frontend pieces now include shared buttons, cards, form fields, data tables, metric cards, menu items, and a dashboard shell. These are small building blocks that can be reused as candidate and recruiter functionality grows.

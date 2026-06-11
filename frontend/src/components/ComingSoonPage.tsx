@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { FeatureCard } from "./FeatureCard";
 import { VisitorCounter } from "./VisitorCounter";
@@ -24,12 +25,20 @@ export function ComingSoonPage() {
                 {siteConfig.name}
               </span>
             </div>
-            <a
-              href={`mailto:${siteConfig.contactEmail}`}
-              className="rounded-md border border-zinc-300 bg-white/70 px-4 py-2 text-sm font-semibold text-zinc-800 shadow-sm shadow-zinc-200/60 transition hover:border-teal-700 hover:text-teal-800"
-            >
-              Contact
-            </a>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/login"
+                className="rounded-md border border-zinc-300 bg-white/70 px-4 py-2 text-sm font-semibold text-zinc-800 shadow-sm shadow-zinc-200/60 transition hover:border-teal-700 hover:text-teal-800"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-md bg-zinc-950 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-zinc-200/60 transition hover:bg-teal-800"
+              >
+                Sign up
+              </Link>
+            </div>
           </nav>
 
           <div className="max-w-3xl py-4 lg:py-10">

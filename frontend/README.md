@@ -28,6 +28,28 @@ SUPABASE_SERVICE_ROLE_KEY=
 - Real visitor counter through `POST /api/visitors`.
 - Tailwind utility classes for UI styling.
 
+## Demo Auth Flow
+
+The frontend includes a demo-only login/signup flow:
+
+```txt
+/login
+/signup
+/candidate
+/recruiter
+```
+
+Temporary demo credentials:
+
+```txt
+demo / demo
+admin / admin
+```
+
+Users choose either `Candidate` or `Recruiter` during login/signup. Candidate users land on `/candidate`; recruiter users land on `/recruiter`.
+
+This is not production authentication. It stores a demo session in `localStorage` so the product flow can be previewed while real auth is still pending.
+
 Next.js landing page with a direct Supabase waitlist form.
 
 ## Run locally
