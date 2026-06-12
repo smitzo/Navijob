@@ -50,6 +50,27 @@ Users choose either `Candidate` or `Recruiter` during login/signup. Candidate us
 
 This is not production authentication. It stores a demo session in `localStorage` so the product flow can be previewed while real auth is still pending.
 
+## Candidate Demo Jobs
+
+The candidate workspace reads demo jobs from the backend JSON fixtures through read-only Next API routes:
+
+```txt
+GET /api/demo/jobs
+GET /api/demo/jobs/<slug>
+```
+
+Candidate users can filter demo jobs by:
+
+- Search text
+- Location
+- Work mode: remote, hybrid, on-site
+- Job type: full-time or internship
+- Tech stack
+- Required experience
+- Minimum salary
+
+Job cards link to `/candidate/jobs/<slug>` for a detail view with responsibilities, requirements, benefits, salary, skills, and company context.
+
 Next.js landing page with a direct Supabase waitlist form.
 
 ## Run locally

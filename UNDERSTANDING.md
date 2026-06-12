@@ -194,3 +194,13 @@ I chose a shared `AuthForm` component instead of separate login and signup imple
 The demo session is stored in browser `localStorage`. That is acceptable for a product preview, but it is not secure production authentication. Real auth should use server-verified sessions, protected API routes, CSRF-aware flows where needed, and backend permission checks.
 
 Reusable frontend pieces now include shared buttons, cards, form fields, data tables, metric cards, menu items, and a dashboard shell. These are small building blocks that can be reused as candidate and recruiter functionality grows.
+
+## Candidate Job Discovery
+
+The candidate workspace now loads demo jobs from `backend/data/demo_jobs.json` through read-only frontend API routes. The frontend does not copy the demo data into a second source of truth.
+
+The job discovery page supports filters for text search, location, work mode, job type, tech stack, required experience, and salary. Salary filtering annualizes monthly internship salaries so internship and full-time roles can be compared with one filter.
+
+I chose client-side filtering for this demo phase because there are only 20 demo jobs. It gives a fast, interactive UI without adding backend query complexity too early. Later, once this uses the real Django API, these filters should move server-side for scalability and permission control.
+
+Each job card links to a detail page. The detail page shows structured sections for responsibilities, requirements, benefits, compensation, skills, and company context. This uses the structured demo fields rather than rendering unsafe HTML.
