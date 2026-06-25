@@ -29,3 +29,11 @@ The first backend setup focuses on:
 - Applications: the connection between an applicant and a job.
 
 The design prefers simple Django models over premature microservices. A beginner can think of this as keeping all the core business data in one well-organized backend before splitting anything apart.
+
+## Applicant Profiles
+
+An applicant profile stores candidate information that is specific to job searching: target roles, skills, location, portfolio links, and whether the person is open to work.
+
+This is separate from Django's built-in user account. The user account answers "who can log in?" while the applicant profile answers "what kind of job is this person looking for?" Keeping those separate avoids turning the authentication table into a messy product table.
+
+I chose a one-to-one relationship with the user because one login should normally have one candidate profile. I chose JSON fields for skills and target roles for the first backend version because they let us move quickly without creating many small lookup tables too early.
