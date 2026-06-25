@@ -147,3 +147,4 @@ I chose these tests first because they protect trust. A premium job platform nee
 ## Implementation Log
 
 - Company admin screens make startup verification and premium partner review visible from Django admin.
+- Job admin screens make listings and applications inspectable before custom internal tools exist.
