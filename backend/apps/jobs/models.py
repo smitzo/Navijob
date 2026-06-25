@@ -28,6 +28,11 @@ class Job(TimeStampedModel):
         CONTRACT = "contract", "Contract"
         PART_TIME = "part_time", "Part-time"
 
+    class SalaryPeriod(models.TextChoices):
+        YEAR = "year", "Year"
+        MONTH = "month", "Month"
+        HOUR = "hour", "Hour"
+
     company = models.ForeignKey("companies.Company", on_delete=models.CASCADE, related_name="jobs")
     title = models.CharField(max_length=220)
     slug = models.SlugField(max_length=260, unique=True)
@@ -39,8 +44,12 @@ class Job(TimeStampedModel):
     job_type = models.CharField(max_length=20, choices=JobType.choices, default=JobType.FULL_TIME)
     experience_min = models.PositiveSmallIntegerField(default=0)
     experience_max = models.PositiveSmallIntegerField(null=True, blank=True)
+    currency = models.CharField(max_length=3, default="USD")
     salary_min = models.PositiveIntegerField(null=True, blank=True)
     salary_max = models.PositiveIntegerField(null=True, blank=True)
+    salary_period = models.CharField(max_length=10, choices=SalaryPeriod.choices, default=SalaryPeriod.YEAR)
+    equity_min = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    equity_max = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     skills = models.JSONField(default=list, blank=True)
     apply_url = models.URLField()
     source = models.CharField(max_length=160, blank=True)
