@@ -53,3 +53,11 @@ The company model represents the startup posting jobs. Premium startup hiring ne
 I chose explicit choices for startup stage and company size because those values are useful for filtering. If we let everyone type free-form values, we would end up with messy data like `Series A`, `series-a`, and `A round` all meaning the same thing.
 
 The model keeps both `is_verified` and `is_premium_partner`. Verified means the company identity is trusted. Premium partner means the company has a stronger business relationship with Navijob. Those are related ideas, but they are not the same.
+
+## Job Listing Lifecycle
+
+A job listing now has a `status`: draft, published, closed, or archived. This is different from deleting a job.
+
+Deleting removes data. Closing or archiving keeps history. That matters for a job platform because applications, analytics, and recruiter activity can still be useful after a role is no longer open.
+
+The job model also stores seniority, such as junior, senior, lead, or executive. I chose explicit choices because seniority is a common search filter and should stay consistent across listings.
