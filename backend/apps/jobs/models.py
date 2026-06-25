@@ -34,6 +34,13 @@ class Job(TimeStampedModel):
         HOUR = "hour", "Hour"
 
     company = models.ForeignKey("companies.Company", on_delete=models.CASCADE, related_name="jobs")
+    posted_by = models.ForeignKey(
+        "accounts.RecruiterProfile",
+        on_delete=models.SET_NULL,
+        related_name="posted_jobs",
+        null=True,
+        blank=True,
+    )
     title = models.CharField(max_length=220)
     slug = models.SlugField(max_length=260, unique=True)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
@@ -52,12 +59,14 @@ class Job(TimeStampedModel):
     equity_max = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     skills = models.JSONField(default=list, blank=True)
     apply_url = models.URLField()
+    apply_email = models.EmailField(blank=True)
     source = models.CharField(max_length=160, blank=True)
     is_verified = models.BooleanField(default=False)
     is_premium = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     published_at = models.DateTimeField(null=True, blank=True)
     expires_at = models.DateTimeField(null=True, blank=True)
+    application_deadline = models.DateField(null=True, blank=True)
 
     class Meta:
         db_table = "jobs"
@@ -66,6 +75,8 @@ class Job(TimeStampedModel):
             models.Index(fields=["status"]),
             models.Index(fields=["is_active", "published_at"]),
             models.Index(fields=["work_mode", "job_type"]),
+            models.Index(fields=["company", "status"]),
+            models.Index(fields=["posted_by", "status"]),
         ]
         ordering = ["-published_at", "-created_at"]
 
