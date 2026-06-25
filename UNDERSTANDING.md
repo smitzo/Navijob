@@ -45,3 +45,11 @@ A recruiter profile stores hiring-side information: which company the recruiter 
 The recruiter is also separate from the user account. This matters because a person can log in as a user, but the product still needs to know whether that person has permission to manage jobs for a startup.
 
 I chose a protected company relationship instead of deleting recruiters automatically when a company is removed. In hiring data, accidental deletion is expensive. Protecting the relationship makes the system ask us to handle company removal deliberately.
+
+## Company Profiles
+
+The company model represents the startup posting jobs. Premium startup hiring needs more trust information than a generic job board, so the model includes stage, company size, funding summary, headquarters, careers URL, and partner verification.
+
+I chose explicit choices for startup stage and company size because those values are useful for filtering. If we let everyone type free-form values, we would end up with messy data like `Series A`, `series-a`, and `A round` all meaning the same thing.
+
+The model keeps both `is_verified` and `is_premium_partner`. Verified means the company identity is trusted. Premium partner means the company has a stronger business relationship with Navijob. Those are related ideas, but they are not the same.
