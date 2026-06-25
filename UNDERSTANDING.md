@@ -154,3 +154,21 @@ I chose these tests first because they protect trust. A premium job platform nee
 - Job API viewsets publish read-only browsing and authenticated application creation under stable `/api/` routes.
 - Initial migrations turn the model design into repeatable database schema changes.
 - Backend tests lock in the main trust rules for listings, applications, and applicant ownership.
+
+## Coming-Soon Frontend
+
+The first frontend screen is a real coming-soon landing page, not a generic placeholder. It introduces Navijob as a premium startup jobs platform, collects waitlist leads, and shows early trust points around verified startup roles, compensation clarity, and recruiter-led hiring.
+
+I chose Tailwind utility classes over custom component CSS because utility classes keep the styling close to the markup and make it easier to change layout quickly without hunting through a large CSS file. The only global CSS left is the Tailwind import.
+
+The landing page is split into modular components: the page shell, feature cards, waitlist form, and visitor counter. This makes the frontend easier for a beginner to understand because each file has one clear responsibility.
+
+The hero uses a generated local bitmap asset instead of a decorative CSS-only background. A real visual makes the first screen feel more like a product and less like a template.
+
+## Visitor Counter
+
+The visitor counter is implemented as a real client-server flow. The browser creates a stable visitor ID and stores it in `localStorage`, then sends it to `POST /api/visitors`. The API records the visitor and returns the unique visitor count.
+
+The production path uses Supabase through the `record_site_visit` database function. This keeps counting logic on the server side instead of trusting the browser to report totals.
+
+There is also a local development fallback that writes to `/tmp/navijob-visitors.json` when Supabase is not configured. I chose that fallback so the counter still works during local frontend work, while Supabase remains the real persistent path for deployment.

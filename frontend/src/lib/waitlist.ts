@@ -1,4 +1,4 @@
-import { supabase } from "./supabase";
+import { getBrowserSupabase } from "./supabase";
 
 export type WaitlistLeadInput = {
   full_name: string;
@@ -10,6 +10,8 @@ export type WaitlistLeadInput = {
 };
 
 export async function submitWaitlistLead(input: WaitlistLeadInput) {
+  const supabase = getBrowserSupabase();
+
   const { error } = await supabase.from("waitlist_leads").insert({
     full_name: input.full_name,
     email: input.email,
