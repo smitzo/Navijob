@@ -85,3 +85,11 @@ The job model keeps a normal `description`, but it also stores responsibilities,
 I chose this over putting everything into one large description because the frontend can later show cleaner sections, and the backend can eventually compare jobs more intelligently. For example, requirements can power matching while benefits can help candidates compare offers.
 
 The `premium_score` and `featured_until` fields are early curation tools. They let Navijob promote especially strong startup roles without changing the basic job model later.
+
+## Job Applications
+
+A job application connects one applicant profile to one job listing. It stores status, cover letter, optional resume, answers to extra questions, and review timestamps.
+
+I chose a separate `JobApplication` model instead of putting application data on the job or applicant because applications are their own business event. One applicant can apply to many jobs, and one job can receive many applications.
+
+The database prevents the same applicant from applying to the same job twice by using a unique constraint. This keeps the data clean even if a frontend bug accidentally sends the same request more than once.

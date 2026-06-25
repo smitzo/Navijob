@@ -88,3 +88,45 @@ class Job(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+
+class JobApplication(TimeStampedModel):
+    class Status(models.TextChoices):
+        DRAFT = "draft", "Draft"
+        SUBMITTED = "submitted", "Submitted"
+        REVIEWING = "reviewing", "Reviewing"
+        SHORTLISTED = "shortlisted", "Shortlisted"
+        REJECTED = "rejected", "Rejected"
+        WITHDRAWN = "withdrawn", "Withdrawn"
+        HIRED = "hired", "Hired"
+
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="applications")
+    applicant = models.ForeignKey("accounts.ApplicantProfile", on_delete=models.CASCADE, related_name="applications")
+    resume = models.ForeignKey(
+        "resumes.Resume",
+        on_delete=models.SET_NULL,
+        related_name="job_applications",
+        null=True,
+        blank=True,
+    )
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.SUBMITTED)
+    cover_letter = models.TextField(blank=True)
+    answers = models.JSONField(default=dict, blank=True)
+    source = models.CharField(max_length=120, default="navijob")
+    submitted_at = models.DateTimeField(null=True, blank=True)
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = "job_applications"
+        constraints = [
+            models.UniqueConstraint(fields=["job", "applicant"], name="unique_application_per_job_applicant"),
+        ]
+        indexes = [
+            models.Index(fields=["job", "status"]),
+            models.Index(fields=["applicant", "status"]),
+            models.Index(fields=["submitted_at"]),
+        ]
+        ordering = ["-submitted_at", "-created_at"]
+
+    def __str__(self):
+        return f"{self.applicant} -> {self.job}"
