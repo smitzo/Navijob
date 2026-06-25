@@ -46,6 +46,9 @@ class Job(TimeStampedModel):
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
     seniority = models.CharField(max_length=20, choices=Seniority.choices, blank=True)
     description = models.TextField()
+    responsibilities = models.JSONField(default=list, blank=True)
+    requirements = models.JSONField(default=list, blank=True)
+    benefits = models.JSONField(default=list, blank=True)
     location = models.CharField(max_length=180, blank=True)
     work_mode = models.CharField(max_length=20, choices=WorkMode.choices, default=WorkMode.ONSITE)
     job_type = models.CharField(max_length=20, choices=JobType.choices, default=JobType.FULL_TIME)
@@ -63,6 +66,8 @@ class Job(TimeStampedModel):
     source = models.CharField(max_length=160, blank=True)
     is_verified = models.BooleanField(default=False)
     is_premium = models.BooleanField(default=False)
+    premium_score = models.PositiveSmallIntegerField(default=0)
+    featured_until = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     published_at = models.DateTimeField(null=True, blank=True)
     expires_at = models.DateTimeField(null=True, blank=True)
@@ -77,6 +82,7 @@ class Job(TimeStampedModel):
             models.Index(fields=["work_mode", "job_type"]),
             models.Index(fields=["company", "status"]),
             models.Index(fields=["posted_by", "status"]),
+            models.Index(fields=["is_premium", "premium_score"]),
         ]
         ordering = ["-published_at", "-created_at"]
 

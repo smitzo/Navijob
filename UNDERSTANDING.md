@@ -77,3 +77,11 @@ A job listing can point to the recruiter profile that posted it. This does not r
 I chose `SET_NULL` for the recruiter relationship. If a recruiter leaves a company, the job history should remain. The listing can survive while the `posted_by` field becomes empty until another recruiter takes responsibility.
 
 The model keeps both `apply_url` and `apply_email` because startups vary. Some use an applicant tracking system, while early-stage teams may still accept email applications.
+
+## Structured Job Content
+
+The job model keeps a normal `description`, but it also stores responsibilities, requirements, and benefits as separate lists.
+
+I chose this over putting everything into one large description because the frontend can later show cleaner sections, and the backend can eventually compare jobs more intelligently. For example, requirements can power matching while benefits can help candidates compare offers.
+
+The `premium_score` and `featured_until` fields are early curation tools. They let Navijob promote especially strong startup roles without changing the basic job model later.
