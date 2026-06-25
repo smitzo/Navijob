@@ -152,3 +152,4 @@ I chose these tests first because they protect trust. A premium job platform nee
 - Account serializers expose applicant and recruiter profiles without letting clients rewrite trusted identity fields.
 - Job serializers separate list, detail, and application shapes so each endpoint returns only the data it needs.
 - Job API viewsets publish read-only browsing and authenticated application creation under stable `/api/` routes.
+- Initial migrations turn the model design into repeatable database schema changes.
