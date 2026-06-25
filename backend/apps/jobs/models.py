@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from apps.core.models import TimeStampedModel
 
 
@@ -89,6 +90,28 @@ class Job(TimeStampedModel):
     def __str__(self):
         return self.title
 
+    def clean(self):
+        errors = {}
+
+        if self.experience_max is not None and self.experience_min > self.experience_max:
+            errors["experience_max"] = "Maximum experience must be greater than or equal to minimum experience."
+
+        if self.salary_min is not None and self.salary_max is not None and self.salary_min > self.salary_max:
+            errors["salary_max"] = "Maximum salary must be greater than or equal to minimum salary."
+
+        if self.equity_min is not None and self.equity_max is not None and self.equity_min > self.equity_max:
+            errors["equity_max"] = "Maximum equity must be greater than or equal to minimum equity."
+
+        if self.premium_score > 100:
+            errors["premium_score"] = "Premium score must be between 0 and 100."
+
+        if errors:
+            raise ValidationError(errors)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
 
 class JobApplication(TimeStampedModel):
     class Status(models.TextChoices):
@@ -130,3 +153,22 @@ class JobApplication(TimeStampedModel):
 
     def __str__(self):
         return f"{self.applicant} -> {self.job}"
+
+    def clean(self):
+        errors = {}
+
+        if self.job_id and not self.job.is_active:
+            errors["job"] = "Applications can only be created for active jobs."
+
+        if self.job_id and self.job.status != Job.Status.PUBLISHED:
+            errors["job"] = "Applications can only be created for published jobs."
+
+        if self.resume_id and self.resume.user_id != self.applicant.user_id:
+            errors["resume"] = "The selected resume must belong to the applicant."
+
+        if errors:
+            raise ValidationError(errors)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
