@@ -66,6 +66,7 @@ Rules:
 - Keep `UNDERSTANDING.md` focused on why decisions were made.
 - Explain beginner-facing concepts in plain language before using framework terms.
 - Document tradeoffs when choosing one approach over another.
+- Store all design mockups, colour variants and reference images in the project-root `assets/` folder. Keep prompts, manifests and design notes in `designs/`, and add new images to the local `assets/index.html` gallery. Preserve previous versions and repair relative links whenever files move.
 
 ### Quality Bar
 

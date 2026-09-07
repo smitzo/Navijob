@@ -1,0 +1,12 @@
+Use case: ui-mockup; precise colour-only edit.
+Input image: the existing NaviJob option B / Open Road homepage. This is the EDIT TARGET and the sole source of layout, text and typography.
+Primary request: recolour this exact approved composition using the "Sage & Forest" palette. This is a controlled colour study of the same design, not a redesign.
+
+Change only the colours:
+- Replace the entire pale yellow hero background with a flat #E1ECDD.
+- Replace black/navy headline text, wordmark, illustration strokes, body text and primary borders with the dark ink #19372E; preserve their exact weight and sharpness.
+- Recolour the "Create profile" and "Explore jobs" filled buttons and the dark benefits strip to #234B3C; keep their text white.
+- Recolour the original bright blue links, selected category underline and small illustration arrow to #2C5947.
+- Keep header, search inputs, page below the dark strip and job cards white. Secondary copy stays a readable neutral grey. Preserve the small employer-initial tiles and all sample-role labels.
+
+Preserve invariants: exact page composition, all wording verbatim, rounded geometric font family and weights, font sizes, line breaks, logo, navigation, illustration shape and placement, search bar, three columns of job cards, spacing, gutters, border widths, button sizes, crop and aspect ratio. Keep every item at its original position. Do not add people, photographs, gradients, shadows, patterns, new icons, slogans, option labels, a browser frame or any new element. Do not remove any section or change the text. Match the source image's flat front-facing website screenshot presentation. Opaque background; high fidelity.

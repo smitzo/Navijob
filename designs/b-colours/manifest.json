@@ -1,0 +1,39 @@
+{
+  "tool": "built-in image generation",
+  "edit_target": "../../assets/round-02/02-open-road.png",
+  "edit_target_sha256": "23614924fefe03ed97fa625a09d844b92eae1add384a05beb1be4ea5bc0ae974",
+  "direction": "B / Open Road selected for refinement",
+  "palette_selection": "B1 / Sage & Forest",
+  "images": [
+    {
+      "file": "../../assets/b-colours/01-sage-forest.png",
+      "width": 1374,
+      "height": 1145,
+      "mode": "RGB",
+      "format": "PNG",
+      "sha256": "f5bae1c6438ede1f383e62b98c55e9577bedacffa67ed84992228d58dcba3243",
+      "prompt": "prompts/01-sage-forest.txt",
+      "status": "selected palette"
+    },
+    {
+      "file": "../../assets/b-colours/02-powder-blue.png",
+      "width": 1374,
+      "height": 1145,
+      "mode": "RGB",
+      "format": "PNG",
+      "sha256": "303fc1015c5d99655e9edfe551a41c387d4cec4fb8abf8fee567d8fc1bdfcb19",
+      "prompt": "prompts/02-powder-blue.txt",
+      "status": "unselected comparison"
+    },
+    {
+      "file": "../../assets/b-colours/03-ivory-rust.png",
+      "width": 1374,
+      "height": 1145,
+      "mode": "RGB",
+      "format": "PNG",
+      "sha256": "5c8314cf55fd58e59a27d3d2c8862be192e17a0f611d711beef22c8156ffc79d",
+      "prompt": "prompts/03-ivory-rust.txt",
+      "status": "unselected comparison"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "images": [
+    {
+      "file": "b-colours/01-sage-forest.png",
+      "width": 1374,
+      "height": 1145,
+      "sha256": "f5bae1c6438ede1f383e62b98c55e9577bedacffa67ed84992228d58dcba3243",
+      "kind": "mockup"
+    },
+    {
+      "file": "b-colours/02-powder-blue.png",
+      "width": 1374,
+      "height": 1145,
+      "sha256": "303fc1015c5d99655e9edfe551a41c387d4cec4fb8abf8fee567d8fc1bdfcb19",
+      "kind": "mockup"
+    },
+    {
+      "file": "b-colours/03-ivory-rust.png",
+      "width": 1374,
+      "height": 1145,
+      "sha256": "5c8314cf55fd58e59a27d3d2c8862be192e17a0f611d711beef22c8156ffc79d",
+      "kind": "mockup"
+    },
+    {
+      "file": "references/frontify.webp",
+      "width": 1366,
+      "height": 11942,
+      "sha256": "9e560b58490cbc89c9f18ff423d447ab615efc9d12dede6f5a333919d13f579e",
+      "kind": "reference"
+    },
+    {
+      "file": "references/parallel.jpg",
+      "width": 1400,
+      "height": 7478,
+      "sha256": "36fedd4c2431d0aea6c7abdb7c4bd4641d2883b33e5b66c2da7e8e7b4d46c1ef",
+      "kind": "reference"
+    },
+    {
+      "file": "references/redsofa.jpg",
+      "width": 1600,
+      "height": 1200,
+      "sha256": "ca5c0b1d5f8d82a3ec1bd1ba0838e0a2a5e81a81f0235d1e8a0e8a8d1ddf36e6",
+      "kind": "reference"
+    },
+    {
+      "file": "round-01/01-editorial-oxide.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "84fee92710e5c81fe13602754ea8a084f4f81eef36ddd2f09dd8cdf84fcc7842",
+      "kind": "mockup"
+    },
+    {
+      "file": "round-01/02-professional-blue.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "cf2b4476c9450ebaf88db38b1cb4fda585123ce709c772200de663f2ff33f871",
+      "kind": "mockup"
+    },
+    {
+      "file": "round-01/03-studio-directory.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "5b3c2dfa71c5820f33d7e4b45aaa4945fccec0e5056b59fa1b3909eaf975695d",
+      "kind": "mockup"
+    },
+    {
+      "file": "round-02/01-talent-collective.png",
+      "width": 1374,
+      "height": 1145,
+      "sha256": "27f6224530cf90b4b34b1d0c4907a007fe0b4e9e63ba431b3b4d13550e5e40c4",
+      "kind": "mockup"
+    },
+    {
+      "file": "round-02/02-open-road.png",
+      "width": 1374,
+      "height": 1145,
+      "sha256": "23614924fefe03ed97fa625a09d844b92eae1add384a05beb1be4ea5bc0ae974",
+      "kind": "mockup"
+    },
+    {
+      "file": "round-02/03-human-perspective.png",
+      "width": 1374,
+      "height": 1145,
+      "sha256": "b50f7091f7295b3f36f14323e1a72b3437234ac6b3536ee47a53fdd656796938",
+      "kind": "mockup"
+    }
+  ]
+}

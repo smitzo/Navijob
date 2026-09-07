@@ -1,0 +1,35 @@
+[
+  {
+    "file": "../../assets/round-02/01-talent-collective.png",
+    "width": 1374,
+    "height": 1145,
+    "mode": "RGB",
+    "format": "PNG",
+    "sha256": "27f6224530cf90b4b34b1d0c4907a007fe0b4e9e63ba431b3b4d13550e5e40c4",
+    "status": "unselected alternative retained as history",
+    "tool": "built-in image generation",
+    "prompt": "prompts/01-talent-collective.txt"
+  },
+  {
+    "file": "../../assets/round-02/02-open-road.png",
+    "width": 1374,
+    "height": 1145,
+    "mode": "RGB",
+    "format": "PNG",
+    "sha256": "23614924fefe03ed97fa625a09d844b92eae1add384a05beb1be4ea5bc0ae974",
+    "status": "direction selected; B1 / Sage & Forest palette selected",
+    "tool": "built-in image generation",
+    "prompt": "prompts/02-open-road.txt"
+  },
+  {
+    "file": "../../assets/round-02/03-human-perspective.png",
+    "width": 1374,
+    "height": 1145,
+    "mode": "RGB",
+    "format": "PNG",
+    "sha256": "b50f7091f7295b3f36f14323e1a72b3437234ac6b3536ee47a53fdd656796938",
+    "status": "unselected alternative retained as history",
+    "tool": "built-in image generation",
+    "prompt": "prompts/03-human-perspective.txt"
+  }
+]
