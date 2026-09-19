@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Navijob",
-  tagline: "Premium startup jobs, launching soon.",
+  tagline: "Less paperwork. More possibilities.",
   description:
-    "A curated hiring lane for ambitious candidates who want verified roles at high-signal startups.",
+    "Create your career profile once, choose your resume and find your next role on NaviJob.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   contactEmail: "hello@navijob.in"
 };

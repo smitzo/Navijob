@@ -9,7 +9,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 ## Ordered commit boundaries
 
 - [x] 01. Record the selected green direction, asset gallery and delivery boundaries.
-- [ ] 02. Install licensed Manrope typography and define sage design tokens.
+- [x] 02. Install licensed Manrope typography and define sage design tokens.
 - [ ] 03. Build accessible shared controls and feedback states.
 - [ ] 04. Build public navigation, footer and responsive menu.
 - [ ] 05. Build the green homepage hero and useful job search.

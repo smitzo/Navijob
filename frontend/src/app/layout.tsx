@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/manrope";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 
@@ -21,11 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className="min-h-screen bg-stone-50 text-zinc-950 antialiased"
-        suppressHydrationWarning
-      >
+    <html lang="en">
+      <body className="antialiased">
         {children}
       </body>
     </html>
