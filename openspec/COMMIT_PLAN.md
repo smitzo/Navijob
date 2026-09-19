@@ -12,7 +12,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 02. Install licensed Manrope typography and define sage design tokens.
 - [x] 03. Build accessible shared controls and feedback states.
 - [x] 04. Build public navigation, footer and responsive menu.
-- [ ] 05. Build the green homepage hero and useful job search.
+- [x] 05. Build the green homepage hero and useful job search.
 - [ ] 06. Connect homepage role previews with honest loading and failure states.
 - [ ] 07. Build URL-driven discovery filters.
 - [ ] 08. Add discovery sorting, pagination and compensation formatting.
