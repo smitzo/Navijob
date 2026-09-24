@@ -16,7 +16,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 06. Connect homepage role previews with honest loading and failure states.
 - [x] 07. Build URL-driven discovery filters.
 - [x] 08. Add discovery sorting, pagination and compensation formatting.
-- [ ] 09. Build public job detail with clear application destinations.
+- [x] 09. Build public job detail with clear application destinations.
 - [ ] 10. Build public company context and open roles.
 - [ ] 11. Build the saved-jobs workspace.
 - [ ] 12. Add isolated backend test settings, health and CSRF bootstrap.
