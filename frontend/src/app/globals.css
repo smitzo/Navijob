@@ -100,6 +100,9 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; }
 .discovery-results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .results-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; min-height: 50px; gap: 12px; margin-bottom: 18px; font-size: 13px; }
 .results-toolbar p { margin: 0; font-weight: 700; }
+.sort-control { display: flex; gap: 10px; align-items: center; font-size: 12px; font-weight: 700; }
+.sort-control select { border: 1px solid var(--line); background: white; border-radius: 4px; min-height: 42px; padding: 8px; }
+.pagination { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 32px; font-size: 12px; }
 @media (max-width: 900px) { .discovery-layout { grid-template-columns: 220px minmax(0, 1fr); gap: 22px; } .discovery-results { grid-template-columns: 1fr; } }
 @media (max-width: 650px) { .discovery { padding-top: 32px; } .discovery-layout { grid-template-columns: 1fr; } .filter-panel { grid-template-columns: 1fr 1fr; padding: 18px; gap: 14px; } .filter-panel > .section-heading, .filter-panel > button { grid-column: 1 / -1; } .filter-panel .field label { font-size: 11px; } }
 .category-links { display: flex; gap: 28px; overflow-x: auto; padding-block: 0 22px; margin-bottom: 22px; font-size: 13px; border-bottom: 1px solid var(--line); }
