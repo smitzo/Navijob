@@ -103,6 +103,15 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; }
 .sort-control { display: flex; gap: 10px; align-items: center; font-size: 12px; font-weight: 700; }
 .back-link { display: inline-block; font-size: 13px; margin-bottom: 35px; text-decoration: none; font-weight: 750; }
 .role-detail { padding-top: 40px; }
+.company-profile { padding-top: 40px; }
+.company-heading { display: flex; gap: 25px; align-items: center; margin: 10px 0 30px; }
+.company-heading > .company-initial { width: 80px; height: 80px; font-size: 38px; }
+.company-heading h1 { font-size: clamp(33px, 5vw, 58px); font-weight: 850; margin: 4px 0 0; }
+.company-heading p { margin: 0; }
+.company-facts { display: flex; flex-wrap: wrap; gap: 18px 28px; padding-block: 25px; border-block: 1px solid var(--line); margin: 28px 0 40px; font-size: 13px; }
+.company-profile h2 { font-size: 27px; font-weight: 800; }
+.company-profile .panel h2 { font-size: 21px; }
+.company-roles { margin-top: 55px; }
 .role-detail-heading { border-bottom: 1px solid var(--line); margin-bottom: 35px; padding-bottom: 24px; }
 .role-detail-heading h1 { font-size: clamp(33px, 4.5vw, 58px); font-weight: 850; max-width: 900px; margin-bottom: 20px; }
 .role-detail-heading .notice { margin-top: 20px; }
