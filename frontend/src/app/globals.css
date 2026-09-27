@@ -112,6 +112,10 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; }
 .company-profile h2 { font-size: 27px; font-weight: 800; }
 .company-profile .panel h2 { font-size: 21px; }
 .company-roles { margin-top: 55px; }
+.workspace-content { padding-block: 45px; }
+.workspace-title { font-size: clamp(30px, 4vw, 45px); font-weight: 850; margin-bottom: 12px; }
+.workspace-content .section-heading { align-items: start; }
+.workspace-content .section-heading p { max-width: 600px; }
 .role-detail-heading { border-bottom: 1px solid var(--line); margin-bottom: 35px; padding-bottom: 24px; }
 .role-detail-heading h1 { font-size: clamp(33px, 4.5vw, 58px); font-weight: 850; max-width: 900px; margin-bottom: 20px; }
 .role-detail-heading .notice { margin-top: 20px; }
