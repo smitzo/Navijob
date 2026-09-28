@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Password recovery uses Django’s built-in password reset token generator with a one-hour expiry. Changing the password makes the token unusable and invalidates prior sessions. Recovery responses do not reveal whether an email address exists, and invalid or weak-password submissions leave the original password intact.
+
 - Email confirmation uses a signed, expiring link bound to the current email and a keyed password-version fingerprint. The token never contains the raw password hash. A confirmation does not sign someone in; resend responses do not reveal whether an account exists.
 
 - Login creates an HttpOnly Django session only after email confirmation. Candidate/recruiter permissions inspect the stored account role and the currently confirmed email; browser role selections and demo bearer strings have no authority. Logout is a CSRF-protected POST and clears the server session.

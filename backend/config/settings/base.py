@@ -113,3 +113,4 @@ CSRF_COOKIE_SAMESITE = "Lax"
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3100").rstrip("/")
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "NaviJob <hello@navijob.in>")
+PASSWORD_RESET_TIMEOUT = 3600
