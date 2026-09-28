@@ -18,7 +18,7 @@ Latest decision: B1 / Sage & Forest selected. The user authorized implementation
 | --- | --- | --- | --- | --- |
 | M00 | [Establish the plan](changes/establish-navijob-plan/proposal.md) | Done | Existing project | Scope, local workflow, three prototypes and milestone artifacts created; strict validation passed for all nine changes and local artifact checks passed |
 | M01 | [Choose visual direction](changes/choose-product-visual-direction/proposal.md) | Review | M00 + palette/screen review | B / Open Road and Sage & Forest selected; detailed screens and responsive implementation next |
-| M02 | [Platform foundation](changes/build-platform-foundation/proposal.md) | Todo | M01 | Selected design system, navigation and real account/permission evidence |
+| M02 | [Platform foundation](changes/build-platform-foundation/proposal.md) | In progress | Green selected | Sage UI foundation and public screens built; real authentication integration and journey checks in progress |
 | M03 | [Career profiles](changes/build-candidate-career-profiles/proposal.md) | Todo | M02 | Profile, four private resumes, projects and ownership checks |
 | M04 | [Job discovery](changes/build-job-discovery/proposal.md) | Todo | M02 | Search/filter URL state, role/company pages, saved jobs and empty/closed states |
 | M05 | [Native applications](changes/build-native-applications/proposal.md) | Todo | M03 + M04 | Reviewed application, immutable snapshot, duplicate prevention and tracking |

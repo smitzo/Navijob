@@ -19,7 +19,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 09. Build public job detail with clear application destinations.
 - [x] 10. Build public company context and open roles.
 - [x] 11. Build the saved-jobs workspace.
-- [ ] 12. Add isolated backend test settings, health and CSRF bootstrap.
+- [x] 12. Add isolated backend test settings, health and CSRF bootstrap.
 - [ ] 13. Add validated registration and candidate/recruiter account roles.
 - [ ] 14. Add authenticated session login, logout and role boundaries.
 - [ ] 15. Add email confirmation and safe resend flow.

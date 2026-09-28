@@ -146,6 +146,9 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Real account work uses Django server sessions and CSRF tokens under a same-origin Next.js proxy. localStorage demo identities never authorize protected backend data. A masked CSRF bootstrap token supports anonymous login/signup forms without disabling CSRF middleware.
+- The isolated test settings module always uses in-memory SQLite and in-memory mail/storage, so tests never connect to a configured Supabase database or send real email.
+
 - Company admin screens make startup verification and premium partner review visible from Django admin.
 - Job admin screens make listings and applications inspectable before custom internal tools exist.
 - Company serializers define compact and detailed JSON shapes for startup profiles.

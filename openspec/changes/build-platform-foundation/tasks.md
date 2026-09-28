@@ -1,7 +1,7 @@
 ## 1. Audit and decisions
 
-- [ ] 1.1 Audit existing demo sessions, API permissions and account integration options.
-- [ ] 1.2 Record the selected real authentication/session approach.
+- [x] 1.1 Audit existing demo sessions, API permissions and account integration options.
+- [x] 1.2 Record the selected real authentication/session approach: Django sessions and same-origin CSRF, with isolated local tests.
 
 ## 2. Foundation
 
