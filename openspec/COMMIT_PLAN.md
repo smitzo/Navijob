@@ -22,7 +22,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 12. Add isolated backend test settings, health and CSRF bootstrap.
 - [x] 13. Add validated registration and candidate/recruiter account roles.
 - [x] 14. Add authenticated session login, logout and role boundaries.
-- [ ] 15. Add email confirmation and safe resend flow.
+- [x] 15. Add email confirmation and safe resend flow.
 - [ ] 16. Add expiring password recovery and reset.
 - [ ] 17. Connect the frontend API client and same-origin backend proxy.
 - [ ] 18. Build real login and registration screens.

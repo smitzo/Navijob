@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.db import IntegrityError, transaction
+from django.core import signing
+from django.utils.crypto import constant_time_compare, salted_hmac
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
 from rest_framework import permissions, status
@@ -9,7 +11,7 @@ from rest_framework.views import APIView
 
 from .auth_serializers import RegistrationSerializer
 from .models import AccountState, ApplicantProfile
-from .tokens import send_confirmation
+from .tokens import CONFIRMATION_SALT, send_confirmation
 from .permissions import verified_state
 
 User = get_user_model()
@@ -73,3 +75,34 @@ class SessionView(APIView):
     def get(self, request):
         state = verified_state(request.user)
         return Response({"user": account_payload(request.user, state) if state else None})
+
+
+class ConfirmEmailView(AnonymousAccountView):
+    def post(self, request):
+        token = request.data.get("token", "")
+        if not isinstance(token, str) or len(token) > 4096:
+            return Response({"detail": "This confirmation link is invalid or expired."}, status=400)
+        try:
+            data = signing.loads(token, salt=CONFIRMATION_SALT, max_age=86400)
+            user = User.objects.get(pk=data["user"], is_active=True)
+            version = salted_hmac("navijob.confirm-password", user.password).hexdigest()
+            if user.email != data["email"] or not constant_time_compare(version, data["version"]):
+                raise signing.BadSignature("Account changed")
+            state = user.account_state
+        except (signing.BadSignature, User.DoesNotExist, AccountState.DoesNotExist, KeyError, TypeError, ValueError):
+            return Response({"detail": "This confirmation link is invalid or expired. Request a new one."}, status=400)
+        state.email_verified = True
+        state.verified_email = user.email
+        state.save(update_fields=["email_verified", "verified_email", "updated_at"])
+        return Response({"detail": "Email confirmed. You can now sign in."})
+
+
+class ResendConfirmationView(AnonymousAccountView):
+    throttle_scope = "email"
+
+    def post(self, request):
+        email = str(request.data.get("email", "")).strip().lower()[:150]
+        user = User.objects.filter(email__iexact=email, is_active=True, account_state__email_verified=False).first()
+        if user:
+            send_confirmation(user)
+        return Response({"detail": "If this account needs confirmation, a new link has been sent."})
