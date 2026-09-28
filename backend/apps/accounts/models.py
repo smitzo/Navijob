@@ -4,6 +4,20 @@ from django.db import models
 from apps.core.models import TimeStampedModel
 
 
+class AccountState(TimeStampedModel):
+    class Role(models.TextChoices):
+        CANDIDATE = "candidate", "Candidate"
+        RECRUITER = "recruiter", "Recruiter"
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="account_state")
+    role = models.CharField(max_length=20, choices=Role.choices)
+    email_verified = models.BooleanField(default=False)
+    verified_email = models.EmailField(blank=True)
+
+    def __str__(self):
+        return f"{self.user.email}: {self.role}"
+
+
 class ApplicantProfile(TimeStampedModel):
     class WorkMode(models.TextChoices):
         REMOTE = "remote", "Remote"
