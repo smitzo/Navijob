@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Login creates an HttpOnly Django session only after email confirmation. Candidate/recruiter permissions inspect the stored account role and the currently confirmed email; browser role selections and demo bearer strings have no authority. Logout is a CSRF-protected POST and clears the server session.
+
 - AccountState stores candidate/recruiter intent and email confirmation separately from personal career data. Signup cannot grant staff access or company authority. Normalized email usernames and a database uniqueness check prevent duplicate registrations; anonymous signup also requires CSRF and password validation. Confirmation mail is delivered through the configured email backend, with console mail used locally.
 
 - Real account work uses Django server sessions and CSRF tokens under a same-origin Next.js proxy. localStorage demo identities never authorize protected backend data. A masked CSRF bootstrap token supports anonymous login/signup forms without disabling CSRF middleware.
