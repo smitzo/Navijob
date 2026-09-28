@@ -24,7 +24,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 14. Add authenticated session login, logout and role boundaries.
 - [x] 15. Add email confirmation and safe resend flow.
 - [x] 16. Add expiring password recovery and reset.
-- [ ] 17. Connect the frontend API client and same-origin backend proxy.
+- [x] 17. Connect the frontend API client and same-origin backend proxy.
 - [ ] 18. Build real login and registration screens.
 - [ ] 19. Build confirmation and password recovery screens.
 - [ ] 20. Build authenticated candidate and recruiter workspace navigation.

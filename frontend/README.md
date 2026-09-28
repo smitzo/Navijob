@@ -1,5 +1,9 @@
 # Navijob Frontend
 
+## Green platform development
+
+The selected UI uses B / Open Road with the Sage & Forest palette. Start Django on 127.0.0.1:8100 and Next.js on port 3100. Set BACKEND_URL for a different local backend; /api/ requests share the frontend origin through a rewrite. Server-owned sessions and CSRF replace demo localStorage authentication for the real product. Self-hosted Manrope is bundled through Fontsource.
+
 Next.js landing page for Navijob.
 
 ## Development
