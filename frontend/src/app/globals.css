@@ -116,6 +116,21 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; }
 .workspace-title { font-size: clamp(30px, 4vw, 45px); font-weight: 850; margin-bottom: 12px; }
 .workspace-content .section-heading { align-items: start; }
 .workspace-content .section-heading p { max-width: 600px; }
+.account-layout { min-height: 100vh; display: grid; grid-template-columns: .95fr 1.05fr; }
+.account-story { background: var(--sage); padding: 42px 55px; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; }
+.account-story > div { padding-block: 70px 20px; }
+.account-story h2 { font-size: clamp(33px, 3.5vw, 52px); font-weight: 850; line-height: 1.2; }
+.account-story p:not(.eyebrow) { font-size: 15px; line-height: 1.9; margin-top: 25px; }
+.account-story .career-path { max-width: 330px; margin-top: 20px; }
+.account-form-area { display: grid; place-items: center; padding: 45px 35px; }
+.account-form { width: min(100%, 450px); }
+.account-form h1 { font-size: clamp(30px, 3vw, 40px); font-weight: 850; }
+.account-form > .muted { font-size: 14px; line-height: 1.8; margin: 20px 0 35px; }
+.account-form form > .button { margin-top: 5px; width: 100%; }
+.account-help { justify-content: space-between; font-size: 12px; }
+.account-switch { border-top: 1px solid var(--line); padding-top: 22px; font-size: 13px; }
+.account-switch a { font-weight: 800; }
+@media (max-width: 780px) { .account-layout { grid-template-columns: 1fr; } .account-story { min-height: auto; padding: 25px; } .account-story > div, .account-story > .small-copy { display: none; } .account-form-area { padding: 35px 22px; } }
 .role-detail-heading { border-bottom: 1px solid var(--line); margin-bottom: 35px; padding-bottom: 24px; }
 .role-detail-heading h1 { font-size: clamp(33px, 4.5vw, 58px); font-weight: 850; max-width: 900px; margin-bottom: 20px; }
 .role-detail-heading .notice { margin-top: 20px; }
