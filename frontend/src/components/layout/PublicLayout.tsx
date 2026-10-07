@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { AccountMenu } from "@/components/auth/AccountMenu";
 
 export function SiteHeader() {
-  return <><a className="skip-link" href="#main">Skip to content</a><header className="site-header"><div className="container header-inner"><Link className="wordmark" href="/" aria-label="NaviJob home">navijob<span aria-hidden="true">↗</span></Link><nav className="desktop-nav" aria-label="Main navigation"><Link href="/jobs">Find jobs</Link><Link href="/for-employers">For employers</Link><Link href="/#how-it-works">How it works</Link></nav><div className="desktop-nav header-actions"><Link href="/login">Sign in</Link><Link className="button button--primary" href="/signup">Create profile <span aria-hidden="true">↗</span></Link></div><details className="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><Link href="/jobs">Find jobs</Link><Link href="/for-employers">For employers</Link><Link href="/#how-it-works">How it works</Link><Link href="/login">Sign in</Link><Link href="/signup">Create profile</Link></nav></details></div></header></>;
+  return <><a className="skip-link" href="#main">Skip to content</a><header className="site-header"><div className="container header-inner"><Link className="wordmark" href="/" aria-label="NaviJob home">navijob<span aria-hidden="true">↗</span></Link><nav className="desktop-nav" aria-label="Main navigation"><Link href="/jobs">Find jobs</Link><Link href="/for-employers">For employers</Link><Link href="/#how-it-works">How it works</Link></nav><div className="desktop-nav header-actions"><AccountMenu /></div><details className="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation"><Link href="/jobs">Find jobs</Link><Link href="/for-employers">For employers</Link><Link href="/#how-it-works">How it works</Link><AccountMenu /></nav></details></div></header></>;
 }
 
 export function SiteFooter() {
