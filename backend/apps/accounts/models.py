@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 from apps.core.models import TimeStampedModel
 
@@ -27,6 +29,10 @@ class ApplicantProfile(TimeStampedModel):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="applicant_profile")
     headline = models.CharField(max_length=180, blank=True)
+    summary = models.TextField(max_length=3000, blank=True)
+    phone = models.CharField(max_length=40, blank=True)
+    notice_period_days = models.PositiveSmallIntegerField(default=0)
+    public_visibility = models.BooleanField(default=False)
     current_title = models.CharField(max_length=160, blank=True)
     location = models.CharField(max_length=160, blank=True)
     experience_years = models.PositiveSmallIntegerField(default=0)
@@ -73,3 +79,54 @@ class RecruiterProfile(TimeStampedModel):
     def __str__(self):
         display_name = self.user.get_full_name() or self.user.get_username()
         return f"Recruiter: {display_name} at {self.company.name}"
+
+
+class Experience(TimeStampedModel):
+    profile = models.ForeignKey(ApplicantProfile, on_delete=models.CASCADE, related_name="experiences")
+    company = models.CharField(max_length=180)
+    title = models.CharField(max_length=180)
+    location = models.CharField(max_length=160, blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+    is_current = models.BooleanField(default=False)
+    description = models.TextField(max_length=4000, blank=True)
+
+    class Meta:
+        ordering = ["-start_date", "-pk"]
+        constraints = [models.CheckConstraint(condition=models.Q(end_date__isnull=True) | models.Q(end_date__gte=models.F("start_date")), name="experience_dates_ordered")]
+
+    def clean(self):
+        errors = {}
+        if self.start_date and self.start_date > timezone.localdate():
+            errors["start_date"] = "Experience cannot start in the future."
+        if self.end_date and self.start_date and self.end_date < self.start_date:
+            errors["end_date"] = "End date cannot be before the start date."
+        if self.is_current and self.end_date:
+            errors["end_date"] = "Leave the end date empty for a current role."
+        if errors:
+            raise ValidationError(errors)
+
+
+class Education(TimeStampedModel):
+    profile = models.ForeignKey(ApplicantProfile, on_delete=models.CASCADE, related_name="education")
+    institution = models.CharField(max_length=180)
+    qualification = models.CharField(max_length=180)
+    field_of_study = models.CharField(max_length=180, blank=True)
+    start_year = models.PositiveSmallIntegerField()
+    end_year = models.PositiveSmallIntegerField(null=True, blank=True)
+    is_current = models.BooleanField(default=False)
+    description = models.TextField(max_length=2000, blank=True)
+
+    class Meta:
+        ordering = ["-start_year", "-pk"]
+        constraints = [models.CheckConstraint(condition=models.Q(end_year__isnull=True) | models.Q(end_year__gte=models.F("start_year")), name="education_years_ordered")]
+
+    def clean(self):
+        errors = {}
+        year = timezone.localdate().year
+        if not 1900 <= self.start_year <= year:
+            errors["start_year"] = "Enter a start year between 1900 and the current year."
+        if self.end_year and (self.end_year < self.start_year or self.end_year > year + 8):
+            errors["end_year"] = "Enter a valid completion or expected graduation year."
+        if errors:
+            raise ValidationError(errors)

@@ -28,7 +28,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 18. Build real login and registration screens.
 - [x] 19. Build confirmation and password recovery screens.
 - [x] 20. Build authenticated candidate and recruiter workspace navigation.
-- [ ] 21. Extend career profiles with structured experience and education.
+- [x] 21. Extend career profiles with structured experience and education.
 - [ ] 22. Add owner-scoped profile API and validation.
 - [ ] 23. Build the reusable career-profile editor.
 - [ ] 24. Build experience editing with meaningful validation.

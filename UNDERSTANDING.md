@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Career experience and education are structured child records owned through the candidate profile. Dates and study years have explicit ordering checks, while ongoing education can include an expected graduation year. New career profiles are private by default; public visibility remains a separate choice from applying to an employer.
+
 - Password recovery uses Django’s built-in password reset token generator with a one-hour expiry. Changing the password makes the token unusable and invalidates prior sessions. Recovery responses do not reveal whether an email address exists, and invalid or weak-password submissions leave the original password intact.
 
 - Email confirmation uses a signed, expiring link bound to the current email and a keyed password-version fingerprint. The token never contains the raw password hash. A confirmation does not sign someone in; resend responses do not reveal whether an account exists.
