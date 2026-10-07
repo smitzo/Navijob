@@ -26,7 +26,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 16. Add expiring password recovery and reset.
 - [x] 17. Connect the frontend API client and same-origin backend proxy.
 - [x] 18. Build real login and registration screens.
-- [ ] 19. Build confirmation and password recovery screens.
+- [x] 19. Build confirmation and password recovery screens.
 - [ ] 20. Build authenticated candidate and recruiter workspace navigation.
 - [ ] 21. Extend career profiles with structured experience and education.
 - [ ] 22. Add owner-scoped profile API and validation.
