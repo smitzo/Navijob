@@ -31,7 +31,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 21. Extend career profiles with structured experience and education.
 - [x] 22. Add owner-scoped profile API and validation.
 - [x] 23. Build the reusable career-profile editor.
-- [ ] 24. Build experience editing with meaningful validation.
+- [x] 24. Build experience editing with meaningful validation.
 - [ ] 25. Build education editing with clear field states.
 - [ ] 26. Add project evidence model and owner-scoped API.
 - [ ] 27. Build the candidate project workspace.
