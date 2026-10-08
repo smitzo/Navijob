@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from urllib.parse import urlsplit
 
 from apps.core.models import TimeStampedModel
 
@@ -130,3 +131,29 @@ class Education(TimeStampedModel):
             errors["end_year"] = "Enter a valid completion or expected graduation year."
         if errors:
             raise ValidationError(errors)
+
+
+class Project(TimeStampedModel):
+    class Stage(models.TextChoices):
+        IDEA = "idea", "Idea"
+        PROTOTYPE = "prototype", "Prototype"
+        LIVE = "live", "Live"
+        ARCHIVED = "archived", "Archived"
+
+    profile = models.ForeignKey(ApplicantProfile, on_delete=models.CASCADE, related_name="projects")
+    title = models.CharField(max_length=180)
+    description = models.TextField(max_length=4000)
+    contribution = models.TextField(max_length=3000, blank=True)
+    stage = models.CharField(max_length=20, choices=Stage.choices, default=Stage.PROTOTYPE)
+    stack = models.JSONField(default=list, blank=True)
+    source_url = models.URLField(blank=True)
+    demo_url = models.URLField(blank=True)
+
+    class Meta:
+        ordering = ["-updated_at", "-pk"]
+
+    def clean(self):
+        for field in ("source_url", "demo_url"):
+            value = getattr(self, field)
+            if value and urlsplit(value).scheme not in {"http", "https"}:
+                raise ValidationError({field: "Use an http or https URL."})

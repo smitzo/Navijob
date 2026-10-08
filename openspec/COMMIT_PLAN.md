@@ -33,7 +33,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 23. Build the reusable career-profile editor.
 - [x] 24. Build experience editing with meaningful validation.
 - [x] 25. Build education editing with clear field states.
-- [ ] 26. Add project evidence model and owner-scoped API.
+- [x] 26. Add project evidence model and owner-scoped API.
 - [ ] 27. Build the candidate project workspace.
 - [ ] 28. Add private resume uploads with four-version limits.
 - [ ] 29. Add protected resume retrieval, naming and primary selection.

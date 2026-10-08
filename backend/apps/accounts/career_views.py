@@ -1,7 +1,7 @@
 from django.db import transaction
 from rest_framework import generics, viewsets
 from rest_framework.exceptions import ValidationError
-from .career_serializers import CareerProfileSerializer, EducationSerializer, ExperienceSerializer
+from .career_serializers import CareerProfileSerializer, EducationSerializer, ExperienceSerializer, ProjectSerializer
 from .models import ApplicantProfile, Education, Experience
 from .permissions import IsCandidate
 
@@ -36,3 +36,7 @@ class ExperienceViewSet(OwnedCareerViewSet):
 
 class EducationViewSet(OwnedCareerViewSet):
     serializer_class = EducationSerializer
+
+
+class ProjectViewSet(OwnedCareerViewSet):
+    serializer_class = ProjectSerializer

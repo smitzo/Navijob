@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Projects store the candidate’s contribution, declared maturity, stack and optional source/demo links. They remain private owner-scoped records until shared in an application. The API labels evidence as candidate-provided and ignores attempted self-verification; links alone do not establish identity or skill verification.
+
 - Career APIs always obtain the owner from the verified server session. They never accept a user/profile ID from the client. Separate serializers validate structured lists and dates, prevent email changes through profile edits, and limit record counts; tests cover cross-candidate read/update/delete denial and forged ownership fields.
 
 - Career experience and education are structured child records owned through the candidate profile. Dates and study years have explicit ordering checks, while ongoing education can include an expected graduation year. New career profiles are private by default; public visibility remains a separate choice from applying to an employer.

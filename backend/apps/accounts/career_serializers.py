@@ -3,7 +3,7 @@ from urllib.parse import urlsplit
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from rest_framework import serializers
-from .models import Education, Experience
+from .models import Education, Experience, Project
 from .serializers import ApplicantProfileSerializer
 
 
@@ -61,3 +61,13 @@ class CareerProfileSerializer(ApplicantProfileSerializer):
             instance.user.last_name = ""
             instance.user.save(update_fields=["first_name", "last_name"])
         return super().update(instance, validated_data)
+
+
+class ProjectSerializer(ValidatedCareerSerializer):
+    stack = serializers.ListField(child=serializers.CharField(max_length=60), max_length=30, allow_empty=True, required=False)
+    evidence_status = serializers.CharField(default="candidate_provided", read_only=True)
+
+    class Meta:
+        model = Project
+        fields = ("id", "title", "description", "contribution", "stage", "stack", "source_url", "demo_url", "evidence_status")
+        read_only_fields = ("id", "evidence_status")
