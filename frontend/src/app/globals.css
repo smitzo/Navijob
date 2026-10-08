@@ -124,6 +124,12 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; }
 .workspace-sidebar nav a[aria-current] { background: var(--sage); font-weight: 800; }
 .sidebar-browse { display: inline-block; font-size: 12px; font-weight: 750; margin: 28px 12px 0; }
 .workspace-main { min-width: 0; }
+.workspace-main .panel h2 { font-size: 22px; font-weight: 800; margin: 0; }
+.checkbox-field { display: flex; align-items: start; gap: 10px; font-size: 13px; font-weight: 650; cursor: pointer; }
+.checkbox-field input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--forest); }
+.save-bar { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding-block: 16px; border-top: 1px solid var(--line); }
+.save-bar p { max-width: 380px; margin: 0; }
+@media (max-width: 600px) { .save-bar { flex-direction: column; align-items: stretch; gap: 14px; } }
 .workspace-main h1 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 850; margin-bottom: 16px; }
 .workspace-main .role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .overview-links { margin-top: 30px; }
