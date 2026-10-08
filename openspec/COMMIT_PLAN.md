@@ -29,7 +29,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 19. Build confirmation and password recovery screens.
 - [x] 20. Build authenticated candidate and recruiter workspace navigation.
 - [x] 21. Extend career profiles with structured experience and education.
-- [ ] 22. Add owner-scoped profile API and validation.
+- [x] 22. Add owner-scoped profile API and validation.
 - [ ] 23. Build the reusable career-profile editor.
 - [ ] 24. Build experience editing with meaningful validation.
 - [ ] 25. Build education editing with clear field states.

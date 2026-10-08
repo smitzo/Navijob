@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Career APIs always obtain the owner from the verified server session. They never accept a user/profile ID from the client. Separate serializers validate structured lists and dates, prevent email changes through profile edits, and limit record counts; tests cover cross-candidate read/update/delete denial and forged ownership fields.
+
 - Career experience and education are structured child records owned through the candidate profile. Dates and study years have explicit ordering checks, while ongoing education can include an expected graduation year. New career profiles are private by default; public visibility remains a separate choice from applying to an employer.
 
 - Password recovery uses Django’s built-in password reset token generator with a one-hour expiry. Changing the password makes the token unusable and invalidates prior sessions. Recovery responses do not reveal whether an email address exists, and invalid or weak-password submissions leave the original password intact.
