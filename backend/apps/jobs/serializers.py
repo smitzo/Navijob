@@ -8,11 +8,15 @@ from apps.jobs.models import Job, JobApplication
 
 class JobListSerializer(serializers.ModelSerializer):
     company = CompanySummarySerializer(read_only=True)
+    accepting_applications = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Job
         fields = (
             "id",
+            "application_mode",
+            "accepting_applications",
+            "is_sample",
             "title",
             "slug",
             "company",
@@ -38,7 +42,12 @@ class JobListSerializer(serializers.ModelSerializer):
 
 
 class JobDetailSerializer(JobListSerializer):
-    posted_by = RecruiterProfileSerializer(read_only=True)
+    posted_by = serializers.SerializerMethodField()
+
+    def get_posted_by(self, job):
+        if not job.posted_by:
+            return None
+        return {"name": job.posted_by.user.get_full_name(), "title": job.posted_by.title}
 
     class Meta(JobListSerializer.Meta):
         fields = JobListSerializer.Meta.fields + (
@@ -53,6 +62,7 @@ class JobDetailSerializer(JobListSerializer):
             "featured_until",
             "created_at",
             "updated_at",
+            "application_questions",
         )
 
 

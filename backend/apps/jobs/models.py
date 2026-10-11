@@ -1,9 +1,28 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.db.models import Q
+from django.utils import timezone
+from urllib.parse import urlsplit
 from apps.core.models import TimeStampedModel
 
 
+class JobQuerySet(models.QuerySet):
+    def available(self):
+        now = timezone.now()
+        return self.filter(status="published", review_status="approved", is_active=True).filter(Q(expires_at__isnull=True) | Q(expires_at__gt=now)).filter(Q(application_deadline__isnull=True) | Q(application_deadline__gte=timezone.localdate()))
+
+
 class Job(TimeStampedModel):
+    class ReviewStatus(models.TextChoices):
+        PENDING = "pending", "Pending review"
+        APPROVED = "approved", "Approved"
+        REJECTED = "rejected", "Changes required"
+
+    class ApplicationMode(models.TextChoices):
+        NATIVE = "native", "Apply on NaviJob"
+        EXTERNAL = "external", "Employer website"
+
+    objects = JobQuerySet.as_manager()
     class Status(models.TextChoices):
         DRAFT = "draft", "Draft"
         PUBLISHED = "published", "Published"
@@ -45,6 +64,11 @@ class Job(TimeStampedModel):
     title = models.CharField(max_length=220)
     slug = models.SlugField(max_length=260, unique=True)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
+    review_status = models.CharField(max_length=20, choices=ReviewStatus.choices, default=ReviewStatus.PENDING)
+    review_feedback = models.TextField(blank=True)
+    application_mode = models.CharField(max_length=20, choices=ApplicationMode.choices, default=ApplicationMode.EXTERNAL)
+    application_questions = models.JSONField(default=list, blank=True)
+    is_sample = models.BooleanField(default=False)
     seniority = models.CharField(max_length=20, choices=Seniority.choices, blank=True)
     description = models.TextField()
     responsibilities = models.JSONField(default=list, blank=True)
@@ -62,7 +86,7 @@ class Job(TimeStampedModel):
     equity_min = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     equity_max = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     skills = models.JSONField(default=list, blank=True)
-    apply_url = models.URLField()
+    apply_url = models.URLField(blank=True)
     apply_email = models.EmailField(blank=True)
     source = models.CharField(max_length=160, blank=True)
     is_verified = models.BooleanField(default=False)
@@ -93,6 +117,21 @@ class Job(TimeStampedModel):
     def clean(self):
         errors = {}
 
+        if self.application_mode == self.ApplicationMode.EXTERNAL and not self.apply_url:
+            errors["apply_url"] = "An external role needs an employer application URL."
+        if self.apply_url and urlsplit(self.apply_url).scheme not in {"http", "https"}:
+            errors["apply_url"] = "Use an http or https application URL."
+        questions = self.application_questions
+        if not isinstance(questions, list) or len(questions) > 10:
+            errors["application_questions"] = "Use a list of up to 10 questions."
+        else:
+            ids = set()
+            for question in questions:
+                if not isinstance(question, dict) or not isinstance(question.get("id"), str) or not 1 <= len(question["id"]) <= 64 or not isinstance(question.get("label"), str) or not 1 <= len(question["label"]) <= 400 or not isinstance(question.get("required", False), bool) or question["id"] in ids:
+                    errors["application_questions"] = "Questions need unique IDs, readable labels and boolean required flags."
+                    break
+                ids.add(question["id"])
+
         if self.experience_max is not None and self.experience_min > self.experience_max:
             errors["experience_max"] = "Maximum experience must be greater than or equal to minimum experience."
 
@@ -111,6 +150,10 @@ class Job(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)
+
+    @property
+    def accepting_applications(self):
+        return self.is_active and self.status == self.Status.PUBLISHED and self.review_status == self.ReviewStatus.APPROVED and (not self.expires_at or self.expires_at > timezone.now()) and (not self.application_deadline or self.application_deadline >= timezone.localdate())
 
 
 class JobApplication(TimeStampedModel):

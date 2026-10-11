@@ -33,6 +33,7 @@ def create_job(company, **overrides):
         "title": "Founding Backend Engineer",
         "slug": "founding-backend-engineer",
         "status": Job.Status.PUBLISHED,
+        "review_status": Job.ReviewStatus.APPROVED,
         "description": "Build the core hiring platform.",
         "location": "Remote",
         "work_mode": Job.WorkMode.REMOTE,
@@ -96,8 +97,8 @@ class JobApiTests(APITestCase):
         response = self.client.get(reverse("job-list"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]["slug"], visible_job.slug)
+        self.assertEqual(len(response.data["results"]), 1)
+        self.assertEqual(response.data["results"][0]["slug"], visible_job.slug)
 
     def test_public_job_list_filters_by_search_query(self):
         company = create_company()
@@ -107,8 +108,8 @@ class JobApiTests(APITestCase):
         response = self.client.get(reverse("job-list"), {"q": "Backend"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]["title"], "Founding Backend Engineer")
+        self.assertEqual(len(response.data["results"]), 1)
+        self.assertEqual(response.data["results"][0]["title"], "Founding Backend Engineer")
 
     def test_authenticated_applicant_can_apply_to_job(self):
         company = create_company()

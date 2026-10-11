@@ -1,45 +1,25 @@
-from django.db.models import Q
 from django.utils import timezone
 from rest_framework import permissions, viewsets
 from rest_framework.exceptions import PermissionDenied
 
 from apps.jobs.models import Job, JobApplication
 from apps.jobs.serializers import JobApplicationSerializer, JobDetailSerializer, JobListSerializer
+from apps.jobs.filters import JobFilters, JobPagination
 
 
 class PublicJobViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = "slug"
+    pagination_class = JobPagination
 
     def get_queryset(self):
-        queryset = (
-            Job.objects.select_related("company", "posted_by", "posted_by__user")
-            .filter(is_active=True, status=Job.Status.PUBLISHED)
-            .order_by("-is_premium", "-premium_score", "-published_at", "-created_at")
-        )
-
-        query = self.request.query_params.get("q")
-        if query:
-            queryset = queryset.filter(
-                Q(title__icontains=query)
-                | Q(company__name__icontains=query)
-                | Q(description__icontains=query)
-                | Q(location__icontains=query)
-            )
-
-        for field in ("work_mode", "job_type", "seniority"):
-            value = self.request.query_params.get(field)
-            if value:
-                queryset = queryset.filter(**{field: value})
-
-        location = self.request.query_params.get("location")
-        if location:
-            queryset = queryset.filter(location__icontains=location)
-
-        is_premium = self.request.query_params.get("is_premium")
-        if is_premium in {"true", "false"}:
-            queryset = queryset.filter(is_premium=is_premium == "true")
-
-        return queryset
+        queryset = Job.objects.select_related("company", "posted_by", "posted_by__user")
+        if self.action == "retrieve":
+            queryset = queryset.filter(review_status=Job.ReviewStatus.APPROVED, status__in=[Job.Status.PUBLISHED, Job.Status.CLOSED])
+        else:
+            queryset = queryset.available()
+        filters = JobFilters(data=self.request.query_params.dict())
+        filters.is_valid(raise_exception=True)
+        return filters.apply(queryset)
 
     def get_serializer_class(self):
         if self.action == "retrieve":

@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 export function ResultsSort() {
   const search = useSearchParams();
   const router = useRouter();
-  return <label className="sort-control">Sort by<select value={search.get("ordering") ?? "newest"} onChange={event => { const query = new URLSearchParams(search); query.set("ordering", event.target.value); query.delete("page"); router.push(`/jobs?${query}`); }}><option value="newest">Newest first</option><option value="salary">Highest annual salary</option></select></label>;
+  return <label className="sort-control">Sort by<select value={search.get("ordering") ?? "newest"} onChange={event => { const query = new URLSearchParams(search); query.set("ordering", event.target.value); query.delete("page"); router.push(`/jobs?${query}`); }}><option value="newest">Newest first</option><option value="salary">Highest annual INR pay</option></select></label>;
 }
 
 export function ResultsPagination({ count, next, previous }: { count: number; next: string | null; previous: string | null }) {
