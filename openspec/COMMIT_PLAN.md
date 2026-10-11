@@ -37,7 +37,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 27. Build the candidate project workspace.
 - [x] 28. Add private resume uploads with four-version limits.
 - [x] 29. Add protected resume retrieval, naming and primary selection.
-- [ ] 30. Build resume upload and version-management screens.
+- [x] 30. Build resume upload and version-management screens.
 - [ ] 31. Strengthen public job queries, deadlines and filter validation.
 - [ ] 32. Add public company details with scoped trust labels.
 - [ ] 33. Add saved-job persistence and connect the workspace.
