@@ -16,10 +16,12 @@ class Resume(TimeStampedModel):
     pdf_file = models.FileField(upload_to=private_resume_path, blank=True, null=True)
     original_filename = models.CharField(max_length=255, blank=True)
     file_size = models.PositiveIntegerField(default=0)
+    is_primary = models.BooleanField(default=False)
     ats_score = models.PositiveSmallIntegerField(null=True, blank=True)
 
     class Meta:
         db_table = "resumes"
+        constraints = [models.UniqueConstraint(fields=["user"], condition=models.Q(is_primary=True), name="one_primary_resume_per_user")]
         ordering = ["-updated_at"]
 
     def __str__(self):

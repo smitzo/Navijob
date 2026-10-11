@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Resume downloads run through an owner-scoped authenticated endpoint and use private/no-store response headers. Renaming changes metadata only; replacing upload bytes requires a new version. A database constraint permits one primary resume per user, and deleting the primary chooses a remaining version under the same user lock.
+
 - Resume uploads accept PDFs up to 5 MB, with a four-version limit serialized by a user-row lock. The server generates storage names and keeps files outside public/static directories; API responses expose metadata without storage URLs. Extension and PDF-header checks constrain accepted uploads, while a production malware-scanning service remains an operational integration rather than an implied capability.
 
 - Projects store the candidate’s contribution, declared maturity, stack and optional source/demo links. They remain private owner-scoped records until shared in an application. The API labels evidence as candidate-provided and ignores attempted self-verification; links alone do not establish identity or skill verification.

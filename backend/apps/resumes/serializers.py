@@ -7,8 +7,8 @@ class ResumeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Resume
-        fields = ("id", "title", "pdf_file", "original_filename", "file_size", "created_at", "updated_at")
-        read_only_fields = ("id", "original_filename", "file_size", "created_at", "updated_at")
+        fields = ("id", "title", "pdf_file", "original_filename", "file_size", "is_primary", "created_at", "updated_at")
+        read_only_fields = ("id", "original_filename", "file_size", "is_primary", "created_at", "updated_at")
 
     def validate_pdf_file(self, upload):
         if upload.size > 5 * 1024 * 1024:
@@ -20,3 +20,10 @@ class ResumeSerializer(serializers.ModelSerializer):
         if signature != b"%PDF-":
             raise serializers.ValidationError("This file does not have a PDF header.")
         return upload
+
+
+class ResumeMetadataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resume
+        fields = ("id", "title", "original_filename", "file_size", "is_primary", "created_at", "updated_at")
+        read_only_fields = ("id", "original_filename", "file_size", "is_primary", "created_at", "updated_at")
