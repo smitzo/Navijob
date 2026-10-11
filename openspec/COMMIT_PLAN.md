@@ -35,7 +35,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 25. Build education editing with clear field states.
 - [x] 26. Add project evidence model and owner-scoped API.
 - [x] 27. Build the candidate project workspace.
-- [ ] 28. Add private resume uploads with four-version limits.
+- [x] 28. Add private resume uploads with four-version limits.
 - [ ] 29. Add protected resume retrieval, naming and primary selection.
 - [ ] 30. Build resume upload and version-management screens.
 - [ ] 31. Strengthen public job queries, deadlines and filter validation.

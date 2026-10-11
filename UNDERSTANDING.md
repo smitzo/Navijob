@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Resume uploads accept PDFs up to 5 MB, with a four-version limit serialized by a user-row lock. The server generates storage names and keeps files outside public/static directories; API responses expose metadata without storage URLs. Extension and PDF-header checks constrain accepted uploads, while a production malware-scanning service remains an operational integration rather than an implied capability.
+
 - Projects store the candidate’s contribution, declared maturity, stack and optional source/demo links. They remain private owner-scoped records until shared in an application. The API labels evidence as candidate-provided and ignores attempted self-verification; links alone do not establish identity or skill verification.
 
 - Career APIs always obtain the owner from the verified server session. They never accept a user/profile ID from the client. Separate serializers validate structured lists and dates, prevent email changes through profile edits, and limit record counts; tests cover cross-candidate read/update/delete denial and forged ownership fields.

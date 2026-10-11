@@ -7,6 +7,7 @@ urlpatterns = [
     path("api/auth/csrf/", csrf_token),
     path("api/auth/", include("apps.accounts.urls")),
     path("api/me/", include("apps.accounts.career_urls")),
+    path("api/resumes/", include("apps.resumes.urls")),
     path("admin/", admin.site.urls),
     path("api/", include("apps.jobs.urls")),
     path("api/waitlist/", include("apps.waitlist.urls")),
