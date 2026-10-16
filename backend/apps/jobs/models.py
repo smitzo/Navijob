@@ -156,6 +156,15 @@ class Job(TimeStampedModel):
         return self.is_active and self.status == self.Status.PUBLISHED and self.review_status == self.ReviewStatus.APPROVED and (not self.expires_at or self.expires_at > timezone.now()) and (not self.application_deadline or self.application_deadline >= timezone.localdate())
 
 
+class SavedJob(TimeStampedModel):
+    applicant = models.ForeignKey("accounts.ApplicantProfile", on_delete=models.CASCADE, related_name="saved_jobs")
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="saved_by")
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=["applicant", "job"], name="unique_saved_job_per_applicant")]
+        ordering = ["-created_at", "-pk"]
+
+
 class JobApplication(TimeStampedModel):
     class Status(models.TextChoices):
         DRAFT = "draft", "Draft"
