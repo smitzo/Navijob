@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Applications now have immutable submitted snapshots and a separate private PDF copy. Career/resume edits must not rewrite submitted content. Stage changes remain possible after a role closes, while candidate-visible history lives in separate event records. The next API slice will create snapshots and copied bytes atomically at submission.
+
 - Saving jobs is an owner-scoped, idempotent action with a unique applicant/job constraint. Unpublished revisions are hidden from saved lists, so bookmarks cannot expose new draft content. A bounded shortlist and server-side role checks keep this separate from application submission.
 
 - Public company endpoints expose company context and currently available reviewed roles, while pending companies and draft jobs remain private. Recruiter accounts and contact details are excluded. Company identity checks and job publication review remain separate signals rather than a general guarantee.

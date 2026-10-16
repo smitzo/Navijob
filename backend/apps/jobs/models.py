@@ -3,6 +3,8 @@ from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.utils import timezone
 from urllib.parse import urlsplit
+from uuid import uuid4
+from django.conf import settings
 from apps.core.models import TimeStampedModel
 
 
@@ -165,12 +167,18 @@ class SavedJob(TimeStampedModel):
         ordering = ["-created_at", "-pk"]
 
 
+def application_resume_path(instance, filename):
+    return f"applications/{instance.applicant.user_id}/{uuid4().hex}.pdf"
+
+
 class JobApplication(TimeStampedModel):
     class Status(models.TextChoices):
         DRAFT = "draft", "Draft"
         SUBMITTED = "submitted", "Submitted"
         REVIEWING = "reviewing", "Reviewing"
         SHORTLISTED = "shortlisted", "Shortlisted"
+        INTERVIEW = "interview", "Interview"
+        OFFER = "offer", "Offer"
         REJECTED = "rejected", "Rejected"
         WITHDRAWN = "withdrawn", "Withdrawn"
         HIRED = "hired", "Hired"
@@ -187,6 +195,8 @@ class JobApplication(TimeStampedModel):
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.SUBMITTED)
     cover_letter = models.TextField(blank=True)
     answers = models.JSONField(default=dict, blank=True)
+    snapshot = models.JSONField(default=dict, blank=True)
+    resume_snapshot_file = models.FileField(upload_to=application_resume_path, blank=True, null=True)
     source = models.CharField(max_length=120, default="navijob")
     submitted_at = models.DateTimeField(null=True, blank=True)
     reviewed_at = models.DateTimeField(null=True, blank=True)
@@ -209,14 +219,21 @@ class JobApplication(TimeStampedModel):
     def clean(self):
         errors = {}
 
-        if self.job_id and not self.job.is_active:
-            errors["job"] = "Applications can only be created for active jobs."
-
-        if self.job_id and self.job.status != Job.Status.PUBLISHED:
-            errors["job"] = "Applications can only be created for published jobs."
+        if not self.pk and self.job_id and not self.job.accepting_applications:
+            errors["job"] = "This role is not accepting applications."
 
         if self.resume_id and self.resume.user_id != self.applicant.user_id:
             errors["resume"] = "The selected resume must belong to the applicant."
+
+        if self.pk:
+            immutable = ("job_id", "applicant_id", "resume_id", "snapshot", "answers", "cover_letter", "source", "submitted_at", "resume_snapshot_file")
+            previous = type(self).objects.filter(pk=self.pk).values(*immutable).first()
+            if previous:
+                for field in immutable:
+                    current = self.resume_snapshot_file.name if field == "resume_snapshot_file" else getattr(self, field)
+                    changed = (previous[field] or "") != (current or "") if field == "resume_snapshot_file" else previous[field] != current
+                    if changed:
+                        errors[field] = "Submitted application content cannot be changed."
 
         if errors:
             raise ValidationError(errors)
@@ -224,3 +241,13 @@ class JobApplication(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)
+
+
+class ApplicationEvent(TimeStampedModel):
+    application = models.ForeignKey(JobApplication, on_delete=models.CASCADE, related_name="events")
+    actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="application_events")
+    status = models.CharField(max_length=20, choices=JobApplication.Status.choices)
+    note = models.CharField(max_length=400, blank=True)
+
+    class Meta:
+        ordering = ["created_at", "pk"]

@@ -41,7 +41,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 31. Strengthen public job queries, deadlines and filter validation.
 - [x] 32. Add public company details with scoped trust labels.
 - [x] 33. Add saved-job persistence and connect the workspace.
-- [ ] 34. Add immutable application snapshots and lifecycle fields.
+- [x] 34. Add immutable application snapshots and lifecycle fields.
 - [ ] 35. Add native application review, validation and duplicate handling.
 - [ ] 36. Build native apply review and submission receipt.
 - [ ] 37. Add candidate application status and withdrawal actions.
