@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Native apply uses a signed 15-minute review digest for the exact profile, project, job and chosen resume shown in the preview. Submission rejects changed or expired reviews, wrong-owner resumes, external/closed roles, missing required answers and duplicates. A private byte-checked resume copy survives deletion of the editable profile version; PUT/PATCH/DELETE cannot rewrite submitted applications.
+
 - Applications now have immutable submitted snapshots and a separate private PDF copy. Career/resume edits must not rewrite submitted content. Stage changes remain possible after a role closes, while candidate-visible history lives in separate event records. The next API slice will create snapshots and copied bytes atomically at submission.
 
 - Saving jobs is an owner-scoped, idempotent action with a unique applicant/job constraint. Unpublished revisions are hidden from saved lists, so bookmarks cannot expose new draft content. A bounded shortlist and server-side role checks keep this separate from application submission.

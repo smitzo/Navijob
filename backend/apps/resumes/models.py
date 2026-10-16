@@ -17,6 +17,7 @@ class Resume(TimeStampedModel):
     original_filename = models.CharField(max_length=255, blank=True)
     file_size = models.PositiveIntegerField(default=0)
     is_primary = models.BooleanField(default=False)
+    content_sha256 = models.CharField(max_length=64, blank=True)
     ats_score = models.PositiveSmallIntegerField(null=True, blank=True)
 
     class Meta:

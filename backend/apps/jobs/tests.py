@@ -111,11 +111,13 @@ class JobApiTests(APITestCase):
         self.assertEqual(len(response.data["results"]), 1)
         self.assertEqual(response.data["results"][0]["title"], "Founding Backend Engineer")
 
-    def test_authenticated_applicant_can_apply_to_job(self):
+    def test_authenticated_applicant_needs_a_review_before_applying(self):
         company = create_company()
         job = create_job(company)
         user = User.objects.create_user(username="candidate", email="candidate@example.com")
         ApplicantProfile.objects.create(user=user)
+        from apps.accounts.models import AccountState
+        AccountState.objects.create(user=user, role="candidate", email_verified=True, verified_email=user.email)
         self.client.force_authenticate(user=user)
 
         response = self.client.post(
@@ -124,9 +126,8 @@ class JobApiTests(APITestCase):
             format="json",
         )
 
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(JobApplication.objects.count(), 1)
-        self.assertEqual(JobApplication.objects.get().job, job)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(JobApplication.objects.count(), 0)
 
     def test_authenticated_user_without_applicant_profile_cannot_apply(self):
         company = create_company()

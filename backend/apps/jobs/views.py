@@ -1,15 +1,26 @@
-from django.utils import timezone
-from rest_framework import permissions, viewsets
-from rest_framework.exceptions import PermissionDenied
+from rest_framework import viewsets
 
-from apps.jobs.models import Job, JobApplication
-from apps.jobs.serializers import JobApplicationSerializer, JobDetailSerializer, JobListSerializer
+from apps.jobs.models import Job
+from apps.jobs.serializers import JobDetailSerializer, JobListSerializer
 from apps.jobs.filters import JobFilters, JobPagination
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
+from apps.accounts.permissions import IsCandidate
+from apps.jobs.applications import application_review
 
 
 class PublicJobViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = "slug"
     pagination_class = JobPagination
+
+    @action(detail=True, methods=["get"], url_path="application-preview", permission_classes=[IsCandidate])
+    def application_preview(self, request, slug=None):
+        try:
+            resume_id = int(request.query_params.get("resume_id", ""))
+        except (ValueError, TypeError) as error:
+            raise ValidationError("Choose a resume before reviewing the application.") from error
+        return Response(application_review(request.user, self.get_object(), resume_id))
 
     def get_queryset(self):
         queryset = Job.objects.select_related("company", "posted_by", "posted_by__user")
@@ -26,25 +37,3 @@ class PublicJobViewSet(viewsets.ReadOnlyModelViewSet):
             return JobDetailSerializer
         return JobListSerializer
 
-
-class JobApplicationViewSet(viewsets.ModelViewSet):
-    serializer_class = JobApplicationSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        applicant_profile = getattr(self.request.user, "applicant_profile", None)
-        if applicant_profile is None:
-            return JobApplication.objects.none()
-
-        return (
-            JobApplication.objects.select_related("job", "job__company", "applicant", "applicant__user", "resume")
-            .filter(applicant=applicant_profile)
-            .order_by("-submitted_at", "-created_at")
-        )
-
-    def perform_create(self, serializer):
-        applicant_profile = getattr(self.request.user, "applicant_profile", None)
-        if applicant_profile is None:
-            raise PermissionDenied("Create an applicant profile before applying to jobs.")
-
-        serializer.save(applicant=applicant_profile, status=JobApplication.Status.SUBMITTED, submitted_at=timezone.now())

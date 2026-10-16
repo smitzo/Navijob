@@ -1,4 +1,5 @@
 from pathlib import PurePosixPath
+import hashlib
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.http import FileResponse
@@ -31,7 +32,11 @@ class ResumeViewSet(viewsets.ModelViewSet):
             raise ValidationError("You can keep up to four resume versions. Remove one before uploading another.")
         upload = serializer.validated_data["pdf_file"]
         filename = PurePosixPath(upload.name.replace("\\", "/")).name[:255]
-        serializer.save(user=self.request.user, original_filename=filename, file_size=upload.size, is_primary=not self.get_queryset().filter(is_primary=True).exists())
+        digest = hashlib.sha256()
+        for chunk in upload.chunks():
+            digest.update(chunk)
+        upload.seek(0)
+        serializer.save(user=self.request.user, original_filename=filename, file_size=upload.size, content_sha256=digest.hexdigest(), is_primary=not self.get_queryset().filter(is_primary=True).exists())
 
     def partial_update(self, request, *args, **kwargs):
         if "pdf_file" in request.data:
