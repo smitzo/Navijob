@@ -32,6 +32,7 @@ class Company(TimeStampedModel):
     location = models.CharField(max_length=160, blank=True)
     careers_url = models.URLField(blank=True)
     is_verified = models.BooleanField(default=False)
+    is_sample = models.BooleanField(default=False)
     is_premium_partner = models.BooleanField(default=False)
 
     class Meta:

@@ -16,6 +16,7 @@ class CompanySummarySerializer(serializers.ModelSerializer):
             "company_size",
             "location",
             "is_verified",
+            "is_sample",
             "is_premium_partner",
         )
 

@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Public company endpoints expose company context and currently available reviewed roles, while pending companies and draft jobs remain private. Recruiter accounts and contact details are excluded. Company identity checks and job publication review remain separate signals rather than a general guarantee.
+
 - Public discovery now requires explicit publication review and hides expired or past-deadline roles. Closed reviewed roles keep readable details with applications disabled. Salary filtering/sorting compares disclosed annual INR base rates, annualizing monthly rates and leaving other currencies/unknown rates unranked. Pagination and validated filter bounds prevent unbounded reads; payment flags do not determine default ranking.
 
 - Resume downloads run through an owner-scoped authenticated endpoint and use private/no-store response headers. Renaming changes metadata only; replacing upload bytes requires a new version. A database constraint permits one primary resume per user, and deleting the primary chooses a remaining version under the same user lock.
