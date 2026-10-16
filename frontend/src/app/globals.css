@@ -126,6 +126,9 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; }
 .workspace-main { min-width: 0; }
 .workspace-main .panel h2 { font-size: 22px; font-weight: 800; margin: 0; }
 .record-fields { padding: 0; margin: 0; border: none; }
+.snapshot-details summary { cursor: pointer; font-size: 18px; font-weight: 800; }
+.snapshot-details > .stack { padding-top: 24px; }
+.snapshot-details h3 { font-size: 17px; font-weight: 750; margin-bottom: 8px; }
 .record-fields:disabled { opacity: .7; }
 .record-row { display: flex; align-items: start; justify-content: space-between; gap: 25px; padding-block: 25px; border-bottom: 1px solid var(--line); }
 .record-row:first-child { padding-top: 0; }
