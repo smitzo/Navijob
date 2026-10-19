@@ -44,7 +44,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 34. Add immutable application snapshots and lifecycle fields.
 - [x] 35. Add native application review, validation and duplicate handling.
 - [x] 36. Build native apply review and submission receipt.
-- [ ] 37. Add candidate application status and withdrawal actions.
+- [x] 37. Add candidate application status and withdrawal actions.
 - [ ] 38. Build candidate application tracking.
 - [ ] 39. Add reviewed recruiter company onboarding.
 - [ ] 40. Build recruiter onboarding screens.
