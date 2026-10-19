@@ -35,12 +35,14 @@ function SubmissionForm({ preview, refresh }: { preview: ApplicationPreview; ref
 export function ApplyReview({ slug }: { slug: string }) {
   const job = useResource<Job>(`jobs/${encodeURIComponent(slug)}/`);
   const resumes = useResource<ResumeVersion[] | PageResult<ResumeVersion>>("resumes/");
+  const existing = useResource<ApplicationRecord[]>(job.data ? `applications/?job_id=${job.data.id}` : null);
   const [selected, setSelected] = useState<number | null>(null);
   const versions = resumes.data ? asPage(resumes.data).results : [];
   const chosen = versions.find(version => version.id === selected) ?? versions.find(version => version.is_primary) ?? versions[0];
   const preview = useResource<ApplicationPreview>(chosen && job.data?.application_mode === "native" && job.data.accepting_applications ? `jobs/${encodeURIComponent(slug)}/application-preview/?resume_id=${chosen.id}` : null);
-  if (job.loading || resumes.loading) return <LoadingState label="Preparing your application…" />;
+  if (job.loading || resumes.loading || existing.loading) return <LoadingState label="Preparing your application…" />;
   if (job.error || resumes.error) return <Notice kind="error"><p>{job.error || resumes.error}</p><ActionButton onClick={() => { job.refresh(); resumes.refresh(); }} variant="outline">Try again</ActionButton></Notice>;
+  if (existing.data?.length) return <section className="panel stack"><h1>You’ve already applied.</h1><p>Your submitted profile and resume are saved with the application.</p><ButtonLink href={`/candidate/applications/${existing.data[0].id}`}>View your application ↗</ButtonLink></section>;
   if (!job.data?.accepting_applications) return <EmptyState title="This role is closed for applications." href="/jobs" action="Explore other roles">Your next opportunity may be with another team.</EmptyState>;
   if (job.data.application_mode !== "native") { const url = safeExternalUrl(job.data.apply_url); return <Notice><p>This role uses the employer’s application site.</p>{url && <a href={url} target="_blank" rel="noopener noreferrer">Open the employer site ↗</a>}</Notice>; }
   if (!chosen) return <EmptyState title="Bring a resume to the next step." href="/candidate/resumes" action="Upload a resume">Upload a PDF first. Then return here to choose your version and review what you’ll share.</EmptyState>;
