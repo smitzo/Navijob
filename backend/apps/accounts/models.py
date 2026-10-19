@@ -68,6 +68,7 @@ class RecruiterProfile(TimeStampedModel):
     linkedin_url = models.URLField(blank=True)
     can_manage_company = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
+    authority_declaration_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         db_table = "recruiter_profiles"

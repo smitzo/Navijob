@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Recruiter onboarding creates a separate pending company and records an authority declaration. It never joins an existing employer by a client-supplied ID or grants verification flags. Operators must review company identity and recruiter authority separately; already-reviewed names/websites cannot be silently replaced by a manager edit.
+
 - Candidate tracking reads only the current candidate’s applications and validates status/job filters. Withdrawal locks the application, records one public event and preserves the submitted snapshot; repeated withdrawal is idempotent, and hired/rejected applications cannot be reopened through this action.
 
 - Native apply uses a signed 15-minute review digest for the exact profile, project, job and chosen resume shown in the preview. Submission rejects changed or expired reviews, wrong-owner resumes, external/closed roles, missing required answers and duplicates. A private byte-checked resume copy survives deletion of the editable profile version; PUT/PATCH/DELETE cannot rewrite submitted applications.

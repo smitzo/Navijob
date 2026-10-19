@@ -46,7 +46,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 36. Build native apply review and submission receipt.
 - [x] 37. Add candidate application status and withdrawal actions.
 - [x] 38. Build candidate application tracking.
-- [ ] 39. Add reviewed recruiter company onboarding.
+- [x] 39. Add reviewed recruiter company onboarding.
 - [ ] 40. Build recruiter onboarding screens.
 - [ ] 41. Add company-scoped role drafts and publication review.
 - [ ] 42. Build recruiter role editing and submission.

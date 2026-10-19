@@ -33,6 +33,8 @@ class Company(TimeStampedModel):
     careers_url = models.URLField(blank=True)
     is_verified = models.BooleanField(default=False)
     is_sample = models.BooleanField(default=False)
+    review_status = models.CharField(max_length=20, choices=[("pending", "Pending review"), ("approved", "Approved"), ("rejected", "Changes required")], default="pending")
+    review_feedback = models.TextField(blank=True)
     is_premium_partner = models.BooleanField(default=False)
 
     class Meta:
