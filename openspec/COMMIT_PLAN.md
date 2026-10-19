@@ -47,7 +47,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 37. Add candidate application status and withdrawal actions.
 - [x] 38. Build candidate application tracking.
 - [x] 39. Add reviewed recruiter company onboarding.
-- [ ] 40. Build recruiter onboarding screens.
+- [x] 40. Build recruiter onboarding screens.
 - [ ] 41. Add company-scoped role drafts and publication review.
 - [ ] 42. Build recruiter role editing and submission.
 - [ ] 43. Build recruiter role dashboard and close actions.
