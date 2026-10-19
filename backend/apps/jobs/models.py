@@ -68,6 +68,7 @@ class Job(TimeStampedModel):
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
     review_status = models.CharField(max_length=20, choices=ReviewStatus.choices, default=ReviewStatus.PENDING)
     review_feedback = models.TextField(blank=True)
+    review_requested_at = models.DateTimeField(null=True, blank=True)
     application_mode = models.CharField(max_length=20, choices=ApplicationMode.choices, default=ApplicationMode.EXTERNAL)
     application_questions = models.JSONField(default=list, blank=True)
     is_sample = models.BooleanField(default=False)
