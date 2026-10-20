@@ -128,6 +128,7 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; }
 .record-fields { padding: 0; margin: 0; border: none; }
 .snapshot-details summary { cursor: pointer; font-size: 18px; font-weight: 800; }
 .record-row h2.application-title { margin-top: 14px; }
+.workspace-main .panel h2.role-dashboard-title { margin-top: 16px; }
 .application-title a { text-decoration: none; }
 .application-title a:hover { text-decoration: underline; }
 .timeline { list-style: none; margin: 0 0 0 5px; padding: 0 0 0 22px; border-left: 1px solid #9bb39c; }
