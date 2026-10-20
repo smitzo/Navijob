@@ -49,7 +49,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 39. Add reviewed recruiter company onboarding.
 - [x] 40. Build recruiter onboarding screens.
 - [x] 41. Add company-scoped role drafts and publication review.
-- [ ] 42. Build recruiter role editing and submission.
+- [x] 42. Build recruiter role editing and submission.
 - [ ] 43. Build recruiter role dashboard and close actions.
 - [ ] 44. Add company-scoped applicant review and private notes API.
 - [ ] 45. Build recruiter applicant lists and filtering.
