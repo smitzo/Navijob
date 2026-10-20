@@ -146,6 +146,8 @@ I chose these tests first because they protect trust. A premium job platform nee
 
 ## Implementation Log
 
+- Applicant review requires reviewed recruiter authority and scopes every read/download/note to the recruiter’s company. List responses use compact frozen candidate summaries; full submitted details are retrieved per application. Private team notes live in a separate relation, never appear in candidate history, and cannot be authored through client-supplied user IDs.
+
 - Recruiter role APIs enforce company membership and manager permissions on the server. Drafts cannot self-publish or grant verification. Publication requests require reviewed company identity and recruiter authority; edits return a published role to draft for another review. Closing preserves applications and role history instead of deleting the listing.
 
 - Recruiter onboarding creates a separate pending company and records an authority declaration. It never joins an existing employer by a client-supplied ID or grants verification flags. Operators must review company identity and recruiter authority separately; already-reviewed names/websites cannot be silently replaced by a manager edit.

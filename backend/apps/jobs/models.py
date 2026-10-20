@@ -252,3 +252,12 @@ class ApplicationEvent(TimeStampedModel):
 
     class Meta:
         ordering = ["created_at", "pk"]
+
+
+class ApplicationNote(TimeStampedModel):
+    application = models.ForeignKey(JobApplication, on_delete=models.CASCADE, related_name="private_notes")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="application_notes")
+    body = models.TextField(max_length=4000)
+
+    class Meta:
+        ordering = ["-created_at", "-pk"]
