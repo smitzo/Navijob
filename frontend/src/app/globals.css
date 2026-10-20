@@ -137,6 +137,9 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; }
 .timeline li::before { content: ""; position: absolute; left: -27px; top: 8px; width: 9px; height: 9px; background: var(--forest); border-radius: 50%; }
 .timeline strong { display: inline-block; margin-right: 14px; font-size: 14px; }
 .timeline p { margin: 8px 0 0; }
+.applicant-filters { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 18px; }
+.applicant-filters > button { grid-column: 1 / -1; justify-self: start; }
+@media (max-width: 800px) { .applicant-filters { grid-template-columns: 1fr; } }
 .snapshot-details > .stack { padding-top: 24px; }
 .snapshot-details h3 { font-size: 17px; font-weight: 750; margin-bottom: 8px; }
 .record-fields:disabled { opacity: .7; }

@@ -52,7 +52,7 @@ Each numbered item is a reviewable product or validation boundary. Run relevant 
 - [x] 42. Build recruiter role editing and submission.
 - [x] 43. Build recruiter role dashboard and close actions.
 - [x] 44. Add company-scoped applicant review and private notes API.
-- [ ] 45. Build recruiter applicant lists and filtering.
+- [x] 45. Build recruiter applicant lists and filtering.
 - [ ] 46. Add valid stage transitions and application history.
 - [ ] 47. Build applicant detail, stage updates and private notes.
 - [ ] 48. Add operator moderation and auditable review decisions.
