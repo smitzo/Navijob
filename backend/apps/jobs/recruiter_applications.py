@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.db import transaction
 from rest_framework import serializers, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
@@ -9,6 +10,7 @@ from .application_serializers import ApplicationSerializer
 from .applications import application_resume_response
 from .models import ApplicationNote, JobApplication
 from .recruiter_views import recruiter_for
+from .transitions import TRANSITIONS, move_application
 
 
 class NoteSerializer(serializers.ModelSerializer):
@@ -25,12 +27,21 @@ class NoteSerializer(serializers.ModelSerializer):
 
 class RecruiterApplicationSerializer(ApplicationSerializer):
     notes = NoteSerializer(source="private_notes", many=True, read_only=True)
+    allowed_transitions = serializers.SerializerMethodField()
+
+    def get_allowed_transitions(self, application):
+        return TRANSITIONS.get(application.status, [])
 
     def get_resume_download_url(self, application):
         return f"/api/recruiter/applications/{application.pk}/resume/" if application.resume_snapshot_file else None
 
     class Meta(ApplicationSerializer.Meta):
-        fields = ApplicationSerializer.Meta.fields + ("notes",)
+        fields = ApplicationSerializer.Meta.fields + ("notes", "allowed_transitions")
+
+
+class StageChangeSerializer(serializers.Serializer):
+    status = serializers.ChoiceField(choices=JobApplication.Status.choices)
+    expected_status = serializers.ChoiceField(choices=JobApplication.Status.choices)
 
 
 class ApplicationBriefSerializer(ApplicationSerializer):
@@ -89,3 +100,13 @@ class RecruiterApplicationViewSet(viewsets.ReadOnlyModelViewSet):
         serializer.is_valid(raise_exception=True)
         note = serializer.save(application=application, author=request.user)
         return Response(NoteSerializer(note).data, status=201)
+
+    @action(detail=True, methods=["post"])
+    @transaction.atomic
+    def stage(self, request, pk=None):
+        current = self.get_object()
+        application = self.get_queryset().select_for_update().get(pk=current.pk)
+        values = StageChangeSerializer(data=request.data)
+        values.is_valid(raise_exception=True)
+        application = move_application(application, request.user, values.validated_data["status"], values.validated_data["expected_status"])
+        return Response(self.get_serializer(application).data)
